@@ -9,6 +9,5 @@ public class Card : ScriptableObject
     public Sprite art;
     public string cardDetail;
     public string cardFlavor;
-    public string artist;
 
 }
