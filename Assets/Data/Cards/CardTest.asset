@@ -12,7 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b28f963d97639e4e9d3b65970f13f87, type: 3}
   m_Name: CardTest
   m_EditorClassIdentifier: 
-  cardName: Frog
-  art: {fileID: 21300000, guid: b7742ec23963aa445b932d0bf1d670ca, type: 3}
-  cardDetail: Frog Attack
-  cardFlavor: '"Frogs Rule"'
+  cardProperties:
+  - stringValue: Card Title
+    intValue: 0
+    sprite: {fileID: 0}
+    cardElement: {fileID: 11400000, guid: 9771448bd70989c4887ccd9ead6740ec, type: 2}
+  - stringValue: 
+    intValue: 0
+    sprite: {fileID: 21300000, guid: b7742ec23963aa445b932d0bf1d670ca, type: 3}
+    cardElement: {fileID: 11400000, guid: f038342c92759d94bb79735826f4a7d8, type: 2}
+  - stringValue: Card Detail
+    intValue: 0
+    sprite: {fileID: 0}
+    cardElement: {fileID: 0}
+  - stringValue: Card Flavor Text
+    intValue: 0
+    sprite: {fileID: 0}
+    cardElement: {fileID: 0}

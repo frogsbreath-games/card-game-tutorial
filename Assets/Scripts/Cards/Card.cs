@@ -5,9 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Card")]
 public class Card : ScriptableObject
 {
-    public string cardName;
-    public Sprite art;
-    public string cardDetail;
-    public string cardFlavor;
+    public CardProperty[] cardProperties;
+    //public string cardName;
+    //public Sprite art;
+    //public string cardDetail;
+    //public string cardFlavor;
 
 }
