@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b28f963d97639e4e9d3b65970f13f87, type: 3}
   m_Name: Frog
   m_EditorClassIdentifier: 
+  cardType: {fileID: 11400000, guid: 12525e8018c556e45b9073aff124e19b, type: 2}
   cardProperties:
   - stringValue: Frog
     intValue: 0

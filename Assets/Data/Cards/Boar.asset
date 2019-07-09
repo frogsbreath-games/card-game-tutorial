@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b28f963d97639e4e9d3b65970f13f87, type: 3}
   m_Name: Boar
   m_EditorClassIdentifier: 
+  cardType: {fileID: 11400000, guid: c9a889cc26871d74fa38e0771c24f28c, type: 2}
   cardProperties:
   - stringValue: Boar Card
     intValue: 0

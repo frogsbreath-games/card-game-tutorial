@@ -4,13 +4,10 @@ using UnityEngine.UI;
 
 public class CardVisual : MonoBehaviour
 {
-    //public Text title;
-    //public Text detail;
-    //public Text flavor;
-    //public Image art;
 
     public Card card;
     public CardVisualProperty[] properties;
+    public GameObject statsHolder;
 
     private void Start()
     {
@@ -25,6 +22,8 @@ public class CardVisual : MonoBehaviour
         }
 
         card = c;
+
+        c.cardType.OnSetType(this);
 
         foreach (CardProperty prop in c.cardProperties)
         {
