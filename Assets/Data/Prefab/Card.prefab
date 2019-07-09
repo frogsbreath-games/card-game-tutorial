@@ -1372,8 +1372,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09fc0ad78a477cf4286c82149980af1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: {fileID: 3272803147105270546}
-  detail: {fileID: 3272803146008233080}
-  flavor: {fileID: 3272803146429290315}
-  art: {fileID: 3272803146714464173}
   card: {fileID: 11400000, guid: 3ad2d8aa5d1648d499227a46d5a85945, type: 2}
+  properties:
+  - text: {fileID: 3272803147105270546}
+    image: {fileID: 0}
+    cardElement: {fileID: 11400000, guid: 9771448bd70989c4887ccd9ead6740ec, type: 2}
+  - text: {fileID: 0}
+    image: {fileID: 3272803146714464173}
+    cardElement: {fileID: 11400000, guid: f038342c92759d94bb79735826f4a7d8, type: 2}
+  - text: {fileID: 3272803146008233080}
+    image: {fileID: 0}
+    cardElement: {fileID: 11400000, guid: 2e70de2c2c395bb4bb126f707aa91f6c, type: 2}
+  - text: {fileID: 3272803146429290315}
+    image: {fileID: 0}
+    cardElement: {fileID: 11400000, guid: ab5746b5916d09f4fbf2e95125d670ef, type: 2}
+  - text: {fileID: 3272803147586991293}
+    image: {fileID: 0}
+    cardElement: {fileID: 11400000, guid: 4d21b56787604d1459e6fe6dd4eebe37, type: 2}

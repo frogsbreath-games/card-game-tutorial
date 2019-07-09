@@ -6700,11 +6700,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1201821982}
     m_Modifications:
-    - target: {fileID: 7871924437906329388, guid: 50f6105b071b1ad4cbb84ea6d0ebda81,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8884804187346683042, guid: 50f6105b071b1ad4cbb84ea6d0ebda81,
         type: 3}
       propertyPath: m_Name
@@ -6924,6 +6919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871924437906329388, guid: 50f6105b071b1ad4cbb84ea6d0ebda81,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50f6105b071b1ad4cbb84ea6d0ebda81, type: 3}

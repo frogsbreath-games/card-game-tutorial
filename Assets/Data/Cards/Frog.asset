@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b28f963d97639e4e9d3b65970f13f87, type: 3}
-  m_Name: CardTest
+  m_Name: Frog
   m_EditorClassIdentifier: 
   cardProperties:
-  - stringValue: Card Title
+  - stringValue: Frog
     intValue: 0
     sprite: {fileID: 0}
     cardElement: {fileID: 11400000, guid: 9771448bd70989c4887ccd9ead6740ec, type: 2}
@@ -21,11 +21,15 @@ MonoBehaviour:
     intValue: 0
     sprite: {fileID: 21300000, guid: b7742ec23963aa445b932d0bf1d670ca, type: 3}
     cardElement: {fileID: 11400000, guid: f038342c92759d94bb79735826f4a7d8, type: 2}
-  - stringValue: Card Detail
+  - stringValue: Frog heals you for 5
     intValue: 0
     sprite: {fileID: 0}
-    cardElement: {fileID: 0}
-  - stringValue: Card Flavor Text
+    cardElement: {fileID: 11400000, guid: 2e70de2c2c395bb4bb126f707aa91f6c, type: 2}
+  - stringValue: Frogs are really scary
     intValue: 0
     sprite: {fileID: 0}
-    cardElement: {fileID: 0}
+    cardElement: {fileID: 11400000, guid: ab5746b5916d09f4fbf2e95125d670ef, type: 2}
+  - stringValue: Resource
+    intValue: 1
+    sprite: {fileID: 0}
+    cardElement: {fileID: 11400000, guid: 4d21b56787604d1459e6fe6dd4eebe37, type: 2}
