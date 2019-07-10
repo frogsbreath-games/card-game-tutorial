@@ -34,3 +34,11 @@ MonoBehaviour:
     intValue: 1
     sprite: {fileID: 0}
     cardElement: {fileID: 11400000, guid: 4d21b56787604d1459e6fe6dd4eebe37, type: 2}
+  - stringValue: Attack
+    intValue: 2
+    sprite: {fileID: 0}
+    cardElement: {fileID: 11400000, guid: 9062a93e4692f8b45b6cc486a84d2c44, type: 2}
+  - stringValue: Defense
+    intValue: 2
+    sprite: {fileID: 0}
+    cardElement: {fileID: 11400000, guid: 426d7c09987650a4eaa164937b2027ba, type: 2}

@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using PL.GameStates;
 
-public static class GameManager {
-    private static ResourcesManager _resourceManager;
-
-    public static ResourcesManager GetResourcesManager()
+namespace PL
+{
+    public class GameManager : MonoBehaviour
     {
-        if(_resourceManager == null)
-        {
-            _resourceManager = Resources.Load("ResourcesManager") as ResourcesManager;
-        }
+        public State currentState;
 
-        return _resourceManager;
+        private void Update()
+        {
+            currentState.Tick(Time.deltaTime);
+        }
     }
 }

@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CardType : ScriptableObject
+namespace PL
 {
-    public string typeName;
-
-    public virtual void OnSetType(CardVisual cardVisual)
+    public abstract class CardType : ScriptableObject
     {
-        CardElement typeElement = GameManager.GetResourcesManager().typeElement;
-        CardVisualProperty type = cardVisual.GetProperty(typeElement);
-        type.text.text = typeName;
+        public string typeName;
+
+        public virtual void OnSetType(CardVisual cardVisual)
+        {
+            CardElement typeElement = Settings.GetResourcesManager().typeElement;
+            CardVisualProperty type = cardVisual.GetProperty(typeElement);
+            type.text.text = typeName;
+        }
     }
 }

@@ -2,78 +2,81 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class CardVisual : MonoBehaviour
+namespace PL
 {
-
-    public Card card;
-    public CardVisualProperty[] properties;
-    public GameObject statsHolder;
-
-    private void Start()
+    public class CardVisual : MonoBehaviour
     {
-        LoadCard(card);
-    }
 
-    public void LoadCard(Card c)
-    {
-        if(c == null)
+        public Card card;
+        public CardVisualProperty[] properties;
+        public GameObject statsHolder;
+
+        private void Start()
         {
-            return;
+            LoadCard(card);
         }
 
-        card = c;
-
-        c.cardType.OnSetType(this);
-
-        foreach (CardProperty prop in c.cardProperties)
+        public void LoadCard(Card c)
         {
-            CardVisualProperty cardVisualProp = GetProperty(prop.cardElement);
-            if (cardVisualProp != null)
+            if (c == null)
             {
-                if(prop.cardElement is CardIntegerElement)
+                return;
+            }
+
+            card = c;
+
+            c.cardType.OnSetType(this);
+
+            foreach (CardProperty prop in c.cardProperties)
+            {
+                CardVisualProperty cardVisualProp = GetProperty(prop.cardElement);
+                if (cardVisualProp != null)
                 {
-                    cardVisualProp.text.text = prop.intValue.ToString();
-                }
-                else if (prop.cardElement is CardTextElement)
-                {
-                    cardVisualProp.text.text = prop.stringValue;
-                }
-                else if (prop.cardElement is CardImageElement)
-                {
-                    cardVisualProp.image.sprite = prop.sprite;
+                    if (prop.cardElement is CardIntegerElement)
+                    {
+                        cardVisualProp.text.text = prop.intValue.ToString();
+                    }
+                    else if (prop.cardElement is CardTextElement)
+                    {
+                        cardVisualProp.text.text = prop.stringValue;
+                    }
+                    else if (prop.cardElement is CardImageElement)
+                    {
+                        cardVisualProp.image.sprite = prop.sprite;
+                    }
                 }
             }
+            //title.text = c.cardName;
+            //detail.text = c.cardDetail;
+
+            //if (string.IsNullOrEmpty(c.cardFlavor))
+            //{
+            //    flavor.gameObject.SetActive(false);
+            //}
+            //else
+            //{
+            //    flavor.gameObject.SetActive(true);
+            //    flavor.text = c.cardFlavor;
+            //}
+
+            //art.sprite = c.art;
+
         }
-        //title.text = c.cardName;
-        //detail.text = c.cardDetail;
 
-        //if (string.IsNullOrEmpty(c.cardFlavor))
-        //{
-        //    flavor.gameObject.SetActive(false);
-        //}
-        //else
-        //{
-        //    flavor.gameObject.SetActive(true);
-        //    flavor.text = c.cardFlavor;
-        //}
-
-        //art.sprite = c.art;
-
-    }
-
-    public CardVisualProperty GetProperty(CardElement e)
-    {
-        CardVisualProperty property = null;
-
-        foreach (CardVisualProperty prop in properties)
+        public CardVisualProperty GetProperty(CardElement e)
         {
-            if(prop.cardElement == e)
-            {
-                property = prop;
-                break;
-            }
-        }
+            CardVisualProperty property = null;
 
-        return property;
+            foreach (CardVisualProperty prop in properties)
+            {
+                if (prop.cardElement == e)
+                {
+                    property = prop;
+                    break;
+                }
+            }
+
+            return property;
+        }
     }
 }

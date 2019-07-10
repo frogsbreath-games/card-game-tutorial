@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-[CreateAssetMenu(menuName = "Elements/Text")]
-public class CardTextElement : CardElement
+namespace PL
 {
+    [CreateAssetMenu(menuName = "Elements/Text")]
+    public class CardTextElement : CardElement
+    {
 
+    }
 }
- 

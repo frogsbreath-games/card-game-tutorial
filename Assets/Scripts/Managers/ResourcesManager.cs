@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="Managers/Resources Manager")]
-public class ResourcesManager : ScriptableObject
+namespace PL
 {
-    public CardElement typeElement;
+    [CreateAssetMenu(menuName = "Managers/Resources Manager")]
+    public class ResourcesManager : ScriptableObject
+    {
+        public CardElement typeElement;
+    }
 }

@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-[CreateAssetMenu(menuName = "Cards/Spell")]
-public class Spell : CardType
+namespace PL
 {
-    public override void OnSetType(CardVisual cardVisual)
+    [CreateAssetMenu(menuName = "Cards/Spell")]
+    public class Spell : CardType
     {
-        base.OnSetType(cardVisual);
+        public override void OnSetType(CardVisual cardVisual)
+        {
+            base.OnSetType(cardVisual);
 
-        cardVisual.statsHolder.SetActive(false);
+            cardVisual.statsHolder.SetActive(false);
+        }
     }
 }
