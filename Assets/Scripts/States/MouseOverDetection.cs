@@ -20,14 +20,16 @@ namespace PL.GameStates
             //Holds a list of objects we hit 
             EventSystem.current.RaycastAll(pointerData, results);
 
+            IClickable i = null;
+
             foreach (RaycastResult result in results)
             {
-                IClickable i = result.gameObject.GetComponentInParent<IClickable>();
+                i = result.gameObject.GetComponentInParent<IClickable>();
 
                 if (i != null)
                 {
-                    //hit something clickable onclick
                     i.OnHighlight();
+                    break;
                 }
             }
         }

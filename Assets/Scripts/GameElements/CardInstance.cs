@@ -5,16 +5,21 @@ namespace PL
 {
     public class CardInstance : MonoBehaviour, IClickable
     {
+        public PL.GameElements.GameElementLogic currentLogic;
+
         public void OnClick()
         {
-            throw new System.NotImplementedException();
+            if (currentLogic == null) return;
+            currentLogic.OnClick(this);
         }
 
         public void OnHighlight()
         {
-            Vector3 s = Vector3.one * 2;
-            this.transform.localScale = s;
-            Debug.Log(this.gameObject.name);
+            if (currentLogic == null) return;
+            Debug.Log("Highlight");
+            currentLogic.OnHighlight(this);
+            //Vector3 s = Vector3.one * 2;
+            //this.transform.localScale = s;
         }
     }
 }
