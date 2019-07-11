@@ -19,10 +19,15 @@ namespace PL
             cardVisual.gameObject.SetActive(true);
         }
 
+        public void CloseCard()
+        {
+            cardVisual.gameObject.SetActive(false);
+        }
+
         private void Start()
         {
+            CloseCard();
             mTransform = this.transform;
-            cardVisual.gameObject.SetActive(false);
         }
 
         // Update is called once per frame

@@ -15,3 +15,4 @@ MonoBehaviour:
   onCurrentCardSelected: {fileID: 11400000, guid: 99e939a9383592f468a81beb13d515bb,
     type: 2}
   currentCard: {fileID: 11400000, guid: 7f0b5c26279972e47b343d86365ec780, type: 2}
+  heldCard: {fileID: 11400000, guid: 5d330c6b67722b54da4da9b7b3749b6a, type: 2}

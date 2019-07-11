@@ -10,15 +10,8 @@ namespace PL.GameStates
     {
         public override void Execute(float delta)
         {
-            PointerEventData pointerData = new PointerEventData(EventSystem.current)
-            {
-                position = Input.mousePosition
-            };
 
-            //Raycast to determine what kind of element we are above
-            List<RaycastResult> results = new List<RaycastResult>();
-            //Holds a list of objects we hit 
-            EventSystem.current.RaycastAll(pointerData, results);
+            List<RaycastResult> results = Settings.GetUIObjectsUnderMouse();
 
             IClickable i = null;
 

@@ -12,13 +12,8 @@ namespace PL.GameStates
         {
             if (Input.GetMouseButtonDown(0))
             {
-                PointerEventData pointerData = new PointerEventData(EventSystem.current)
-                {
-                    position = Input.mousePosition
-                };
 
-                List<RaycastResult> results = new List<RaycastResult>();
-                EventSystem.current.RaycastAll(pointerData, results);
+                List<RaycastResult> results = Settings.GetUIObjectsUnderMouse();
 
                 foreach (RaycastResult result in results)
                 {

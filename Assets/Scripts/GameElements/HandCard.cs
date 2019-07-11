@@ -7,11 +7,13 @@ namespace PL.GameElements
     {
         public SO.GameEvent onCurrentCardSelected;
         public CardVariable currentCard;
+        public PL.GameStates.State heldCard;
 
         public override void OnClick(CardInstance instance)
         {
             currentCard.Set(instance);
             Debug.Log("Hand Card Clicked");
+            Settings.gameManager.SetState(heldCard);
             onCurrentCardSelected.Raise();
         }
 
