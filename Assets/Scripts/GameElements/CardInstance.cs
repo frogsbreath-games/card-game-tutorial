@@ -6,6 +6,12 @@ namespace PL
     public class CardInstance : MonoBehaviour, IClickable
     {
         public PL.GameElements.GameElementLogic currentLogic;
+        public CardVisual visual;
+
+        public void Start()
+        {
+            visual = GetComponent<CardVisual>();
+        }
 
         public void OnClick()
         {
