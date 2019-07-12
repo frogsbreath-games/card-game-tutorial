@@ -2,12 +2,14 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using PL.GameElements;
 
 namespace PL.GameStates
 {
     [CreateAssetMenu(menuName = "Actions/MouseHoldWithCard")]
     public class MouseHoldWithCard : Action
     {
+        public CardVariable currentCard;
         public State playerControlState;
         public SO.GameEvent onPlayerControlState;
 
@@ -22,7 +24,16 @@ namespace PL.GameStates
                 foreach (RaycastResult result in results)
                 {
                     //Check for droppable areas
+                    Area a = result.gameObject.GetComponentInParent<Area>();
+                    if(a != null)
+                    {
+                        a.OnDrop();
+                        break;
+                    }
                 }
+
+                currentCard.value.gameObject.SetActive(true);
+                currentCard.value = null;
 
                 Settings.gameManager.SetState(playerControlState);
                 onPlayerControlState.Raise();
