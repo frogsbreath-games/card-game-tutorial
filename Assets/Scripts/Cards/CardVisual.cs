@@ -11,10 +11,11 @@ namespace PL
         public CardVisualProperty[] properties;
         public GameObject statsHolder;
 
-        private void Start()
-        {
-            LoadCard(card);
-        }
+        //Race Condition in resource manager
+        //private void Start()
+        //{
+        //    LoadCard(card);
+        //}
 
         public void LoadCard(Card c)
         {

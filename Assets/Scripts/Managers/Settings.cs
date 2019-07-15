@@ -16,6 +16,7 @@ namespace PL
             if (_resourceManager == null)
             {
                 _resourceManager = Resources.Load("ResourcesManager") as ResourcesManager;
+                _resourceManager.Init();
             }
 
             return _resourceManager;
@@ -33,6 +34,14 @@ namespace PL
             //Holds a list of objects we hit 
             EventSystem.current.RaycastAll(pointerData, results);
             return results;
+        }
+
+        public static void SetParentForCard(Transform c, Transform p)
+        {
+            c.SetParent(p);
+            c.localPosition = Vector3.zero;
+            c.localEulerAngles = Vector3.zero;
+            c.localScale = Vector3.one;
         }
     }
 }

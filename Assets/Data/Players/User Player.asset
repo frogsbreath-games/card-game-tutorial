@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10998ccbf680e514caeb8187f1b155bd, type: 3}
+  m_Name: User Player
+  m_EditorClassIdentifier: 
+  startingCards:
+  - Boar
+  - Frog
+  handGrid: {fileID: 11400000, guid: d5517401391cd7b4ba514deeb907ba77, type: 2}
+  playedGrid: {fileID: 11400000, guid: 4b7cd9cded4395e48ba96a455e80f329, type: 2}
+  handLogic: {fileID: 11400000, guid: f6efd306dfa55e54bb498028ae938023, type: 2}
+  playedLogic: {fileID: 11400000, guid: 24e6d281804b9684a892924e3aab1cff, type: 2}

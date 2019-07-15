@@ -19,10 +19,7 @@ namespace PL
             {
 
                 Debug.Log("Place Card Down");
-                card.value.transform.SetParent(areaGrid.value.transform);
-                card.value.transform.localPosition = Vector3.zero;
-                card.value.transform.localEulerAngles = Vector3.zero;
-                card.value.transform.localScale = Vector3.one;
+                Settings.SetParentForCard(card.value.transform, areaGrid.value.transform);
                 card.value.currentLogic = playedCardLogic;
                 card.value.gameObject.SetActive(true);
                 //Place card down
