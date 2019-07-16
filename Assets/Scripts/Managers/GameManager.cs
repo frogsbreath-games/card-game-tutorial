@@ -9,6 +9,9 @@ namespace PL
         public PlayerHolder currentPlayer;
         public State currentState;
         public GameObject cardPrefab;
+        public SO.GameEvent onTurnChange;
+        public SO.GameEvent onPhaseChange;
+        public SO.StringVariable TurnName;
 
         public int turnIndex;
         public Turn[] turns;
@@ -17,6 +20,8 @@ namespace PL
         {
             Settings.gameManager = this;
             CreateStartingCards();
+            TurnName.value = turns[turnIndex].TurnName;
+            onTurnChange.Raise();
         }
 
         void CreateStartingCards()
@@ -36,13 +41,18 @@ namespace PL
         private void Update()
         {
             bool isComplete = turns[turnIndex].Execute();
+
             if (isComplete)
             {
                 turnIndex++;
+
                 if (turnIndex > turns.Length -1)
                 {
                     turnIndex = 0;
                 }
+
+                TurnName.value = turns[turnIndex].TurnName;
+                onTurnChange.Raise();
             }
 
             if (currentState != null)

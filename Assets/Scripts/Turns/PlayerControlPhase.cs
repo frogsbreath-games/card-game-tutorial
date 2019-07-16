@@ -31,6 +31,7 @@ namespace PL
             if (!isInit)
             {
                 Settings.gameManager.SetState(playerControlState);
+                Settings.gameManager.onPhaseChange.Raise();
                 isInit = true;
             }
         }

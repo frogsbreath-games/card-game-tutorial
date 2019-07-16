@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b9341ab94506d458762d41015f1526, type: 3}
   m_Name: Player Battle Phase
   m_EditorClassIdentifier: 
+  phaseName: Battle Phase
+  forceExit: 0

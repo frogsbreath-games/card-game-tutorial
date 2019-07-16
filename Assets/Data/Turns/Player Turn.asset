@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0c9f04ff09d83409ae328fb5c92042, type: 3}
   m_Name: Player Turn
   m_EditorClassIdentifier: 
-  phases: []
+  TurnName: Player Turn
+  currentPhase: {fileID: 11400000, guid: 7bf42f492257c85469fa81d6a76829f4, type: 2}
+  phases:
+  - {fileID: 11400000, guid: 1dd3c41a3d7fbb943b3e85e8e3f0d8eb, type: 2}
+  - {fileID: 11400000, guid: 7af7b2765a9bf1546ba398eaabf39d6a, type: 2}

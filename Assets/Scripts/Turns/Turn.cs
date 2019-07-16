@@ -6,9 +6,12 @@ namespace PL
     [CreateAssetMenu(menuName ="Turns/Turn")]
     public class Turn : ScriptableObject
     {
+        public string TurnName;
+
         //Always stored as zero when game starts
         [System.NonSerialized]
         int index;
+        public PhaseVariable currentPhase;
 
         public Phase[] phases;
 
@@ -16,6 +19,7 @@ namespace PL
         {
             bool result = false;
 
+            currentPhase.value = phases[index];
             phases[index].OnStartPhase();
 
             bool phaseComplete = phases[index].IsComplete();
@@ -30,6 +34,7 @@ namespace PL
                     index = 0;
                     result = true;
                 }
+
             }
 
             return result;

@@ -15,6 +15,7 @@ MonoBehaviour:
   startingCards:
   - Boar
   - Frog
+  - OctopusPower
   handGrid: {fileID: 11400000, guid: d5517401391cd7b4ba514deeb907ba77, type: 2}
   playedGrid: {fileID: 11400000, guid: 4b7cd9cded4395e48ba96a455e80f329, type: 2}
   handLogic: {fileID: 11400000, guid: f6efd306dfa55e54bb498028ae938023, type: 2}

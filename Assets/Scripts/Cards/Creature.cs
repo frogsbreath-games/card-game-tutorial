@@ -10,7 +10,7 @@ namespace PL
         {
             base.OnSetType(cardVisual);
 
-            cardVisual.statsHolder.SetActive(true);
+            cardVisual.StatsHolder.SetActive(true);
         }
     }
 }

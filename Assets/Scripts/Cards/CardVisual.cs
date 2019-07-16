@@ -9,7 +9,8 @@ namespace PL
 
         public Card card;
         public CardVisualProperty[] properties;
-        public GameObject statsHolder;
+        public GameObject StatsHolder;
+        public GameObject ResourceHolder;
 
         //Race Condition in resource manager
         //private void Start()
