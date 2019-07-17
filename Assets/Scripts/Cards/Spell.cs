@@ -11,6 +11,7 @@ namespace PL
             base.OnSetType(cardVisual);
 
             cardVisual.StatsHolder.SetActive(false);
+            cardVisual.ResourceHolder.SetActive(true);
         }
     }
 }

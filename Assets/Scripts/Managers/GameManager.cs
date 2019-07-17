@@ -20,7 +20,7 @@ namespace PL
         {
             Settings.gameManager = this;
             CreateStartingCards();
-            TurnName.value = turns[turnIndex].TurnName;
+            TurnName.value = turns[turnIndex].Player.Username;
             onTurnChange.Raise();
         }
 
@@ -51,7 +51,7 @@ namespace PL
                     turnIndex = 0;
                 }
 
-                TurnName.value = turns[turnIndex].TurnName;
+                TurnName.value = turns[turnIndex].Player.Username;
                 onTurnChange.Raise();
             }
 

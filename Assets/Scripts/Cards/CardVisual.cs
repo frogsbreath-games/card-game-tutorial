@@ -12,12 +12,6 @@ namespace PL
         public GameObject StatsHolder;
         public GameObject ResourceHolder;
 
-        //Race Condition in resource manager
-        //private void Start()
-        //{
-        //    LoadCard(card);
-        //}
-
         public void LoadCard(Card c)
         {
             if (c == null)
@@ -26,6 +20,9 @@ namespace PL
             }
 
             card = c;
+
+
+            CloseAll();
 
             c.cardType.OnSetType(this);
 
@@ -37,32 +34,36 @@ namespace PL
                     if (prop.cardElement is CardIntegerElement)
                     {
                         cardVisualProp.text.text = prop.intValue.ToString();
+                        cardVisualProp.text.gameObject.SetActive(true);
                     }
                     else if (prop.cardElement is CardTextElement)
                     {
                         cardVisualProp.text.text = prop.stringValue;
+                        cardVisualProp.text.gameObject.SetActive(true);
                     }
                     else if (prop.cardElement is CardImageElement)
                     {
                         cardVisualProp.image.sprite = prop.sprite;
+                        cardVisualProp.image.gameObject.SetActive(true);
                     }
                 }
             }
-            //title.text = c.cardName;
-            //detail.text = c.cardDetail;
+        }
 
-            //if (string.IsNullOrEmpty(c.cardFlavor))
-            //{
-            //    flavor.gameObject.SetActive(false);
-            //}
-            //else
-            //{
-            //    flavor.gameObject.SetActive(true);
-            //    flavor.text = c.cardFlavor;
-            //}
+        public void CloseAll()
+        {
+            foreach (CardVisualProperty visualProperty in properties)
+            {
+                if (visualProperty.image != null)
+                {
+                    visualProperty.image.gameObject.SetActive(false);
+                }
 
-            //art.sprite = c.art;
-
+                if (visualProperty.text != null)
+                {
+                    visualProperty.text.gameObject.SetActive(false);
+                }
+            }
         }
 
         public CardVisualProperty GetProperty(CardElement e)

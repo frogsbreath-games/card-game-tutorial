@@ -6,6 +6,7 @@ namespace PL
     [CreateAssetMenu(menuName ="Holders/Player Holder")]
     public class PlayerHolder : ScriptableObject
     {
+        public string Username;
         public string[] startingCards;
         public SO.TransformVariable handGrid;
         public SO.TransformVariable playedGrid;

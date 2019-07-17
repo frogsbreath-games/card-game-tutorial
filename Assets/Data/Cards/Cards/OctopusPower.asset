@@ -30,15 +30,3 @@ MonoBehaviour:
     intValue: 0
     sprite: {fileID: 0}
     cardElement: {fileID: 11400000, guid: ab5746b5916d09f4fbf2e95125d670ef, type: 2}
-  - stringValue: Resource
-    intValue: 0
-    sprite: {fileID: 0}
-    cardElement: {fileID: 11400000, guid: 4d21b56787604d1459e6fe6dd4eebe37, type: 2}
-  - stringValue: Attack
-    intValue: 0
-    sprite: {fileID: 0}
-    cardElement: {fileID: 11400000, guid: 9062a93e4692f8b45b6cc486a84d2c44, type: 2}
-  - stringValue: Defense
-    intValue: 0
-    sprite: {fileID: 0}
-    cardElement: {fileID: 11400000, guid: 426d7c09987650a4eaa164937b2027ba, type: 2}

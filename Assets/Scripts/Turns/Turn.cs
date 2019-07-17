@@ -7,7 +7,7 @@ namespace PL
     public class Turn : ScriptableObject
     {
         public string TurnName;
-
+        public PlayerHolder Player;
         //Always stored as zero when game starts
         [System.NonSerialized]
         int index;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Player Turn
   m_EditorClassIdentifier: 
   TurnName: Player Turn
+  Player: {fileID: 11400000, guid: 2b57864446ca5154c8c86b82b1fd17ca, type: 2}
   currentPhase: {fileID: 11400000, guid: 7bf42f492257c85469fa81d6a76829f4, type: 2}
   phases:
   - {fileID: 11400000, guid: 1dd3c41a3d7fbb943b3e85e8e3f0d8eb, type: 2}

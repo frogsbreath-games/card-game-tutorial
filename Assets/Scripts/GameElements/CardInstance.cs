@@ -22,7 +22,6 @@ namespace PL
         public void OnHighlight()
         {
             if (currentLogic == null) return;
-            Debug.Log("Highlight");
             currentLogic.OnHighlight(this);
             //Vector3 s = Vector3.one * 2;
             //this.transform.localScale = s;
