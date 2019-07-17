@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card: {fileID: 11400000, guid: 7f0b5c26279972e47b343d86365ec780, type: 2}
   creatureType: {fileID: 11400000, guid: c9a889cc26871d74fa38e0771c24f28c, type: 2}
+  ResourceType: {fileID: 11400000, guid: d670d0a2a0400934caee09c73875b3d7, type: 2}
   areaGrid: {fileID: 11400000, guid: 4b7cd9cded4395e48ba96a455e80f329, type: 2}
+  ResourceGrid: {fileID: 11400000, guid: 6f533570d352ff84988bb2bb24b0206f, type: 2}
   playedCardLogic: {fileID: 11400000, guid: 24e6d281804b9684a892924e3aab1cff, type: 2}

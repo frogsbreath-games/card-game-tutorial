@@ -9,6 +9,7 @@ namespace PL
         public string Username;
         public string[] startingCards;
         public SO.TransformVariable handGrid;
+        public SO.TransformVariable ResourceGrid;
         public SO.TransformVariable playedGrid;
 
         public GameElements.GameElementLogic handLogic;
