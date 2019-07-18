@@ -7,31 +7,33 @@ namespace PL
     public class PlayerHolder : ScriptableObject
     {
         public string Username;
-        public string[] startingCards;
-        public SO.TransformVariable handGrid;
-        public SO.TransformVariable ResourceGrid;
-        public SO.TransformVariable playedGrid;
-       
+        public string[] StartingCards;
+
+        public bool IsHuman;
+
         public GameElements.GameElementLogic handLogic;
         public GameElements.GameElementLogic playedLogic;
 
         public int ResourcesPerTurn = 1;
 
         [System.NonSerialized]
+        public CardHolder CurrentCardHolder;
+
+        [System.NonSerialized]
         public int ResourcesPlayedThisTurn;
     
         [System.NonSerialized]
-        public List<CardInstance> handCards = new List<CardInstance>();
+        public List<CardInstance> HandCards = new List<CardInstance>();
 
         [System.NonSerialized]
-        public List<CardInstance> playedCards = new List<CardInstance>();
+        public List<CardInstance> PlayedCards = new List<CardInstance>();
 
         [System.NonSerialized]
         public List<ResourceHolder> ResourceHolderList = new List<ResourceHolder>();
 
         public int ResourceCount
         {
-            get { return ResourceGrid.value.GetComponentsInChildren<CardVisual>().Length; }
+            get { return CurrentCardHolder.ResourceGrid.value.GetComponentsInChildren<CardVisual>().Length; }
         }
 
         public int AvailableResource()
@@ -46,6 +48,17 @@ namespace PL
                 }
             }
             return resourceCount;
+        }
+
+        public void DropCard(CardInstance cardInstance)
+        {
+            if (HandCards.Contains(cardInstance))
+            {
+                HandCards.Remove(cardInstance);
+            }
+
+            PlayedCards.Add(cardInstance);
+
         }
 
         public void AddResourceCard(GameObject card)

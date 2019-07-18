@@ -19,14 +19,14 @@ namespace PL
 
             Card card = CardVariable.value.visual.card;
 
-            bool canPlay = Settings.gameManager.currentPlayer.CanPlayCard(card);
+            bool canPlay = Settings.gameManager.CurrentPlayer.CanPlayCard(card);
 
             if (card.cardType == creatureType)
             {
 
                 if (canPlay)
                 {
-                    Settings.PlayCreatureCard(CardVariable.value.transform, areaGrid.value.transform, card);
+                    Settings.PlayCreatureCard(CardVariable.value.transform, areaGrid.value.transform, CardVariable.value);
                     CardVariable.value.currentLogic = playedCardLogic;
                 }
                 
@@ -37,7 +37,7 @@ namespace PL
                 if (canPlay)
                 {
                     Settings.SetParentForCard(CardVariable.value.transform, ResourceGrid.value.transform);
-                    Settings.gameManager.currentPlayer.AddResourceCard(CardVariable.value.gameObject);
+                    Settings.gameManager.CurrentPlayer.AddResourceCard(CardVariable.value.gameObject);
                     CardVariable.value.currentLogic = playedCardLogic;
                 }
                 CardVariable.value.gameObject.SetActive(true);

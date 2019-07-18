@@ -6,7 +6,11 @@ namespace PL
 {
     public class GameManager : MonoBehaviour
     {
-        public PlayerHolder currentPlayer;
+        public PlayerHolder[] Players;
+        public PlayerHolder CurrentPlayer;
+
+        public CardHolder UserPlayerCardHolder;
+        public CardHolder EnemyPlayerCardHolder;
         public State currentState;
         public GameObject cardPrefab;
         public SO.GameEvent onTurnChange;
@@ -19,27 +23,58 @@ namespace PL
         private void Start()
         {
             Settings.gameManager = this;
+
+            SetupPlayers();
             CreateStartingCards();
             TurnName.value = turns[turnIndex].Player.Username;
             onTurnChange.Raise();
+        }
+        void SetupPlayers()
+        {
+            foreach (PlayerHolder player in Players)
+            {
+                if (player.IsHuman)
+                {
+                    player.CurrentCardHolder = UserPlayerCardHolder;
+                }
+                else
+                {
+                    player.CurrentCardHolder = EnemyPlayerCardHolder;
+                }
+
+            }
         }
 
         void CreateStartingCards()
         {
             ResourcesManager manager = Settings.GetResourcesManager();
-            for (int i = 0; i < currentPlayer.startingCards.Length; i++)
+            for (int i = 0; i < Players.Length; i++)
             {
-                GameObject cardObject = Instantiate(cardPrefab) as GameObject;
-                CardVisual visual = cardObject.GetComponent<CardVisual>();
-                visual.LoadCard(manager.GetCardInstance(currentPlayer.startingCards[i]));
-                CardInstance cardInstance = cardObject.GetComponent<CardInstance>();
-                cardInstance.currentLogic = currentPlayer.handLogic;
-                Settings.SetParentForCard(cardObject.transform, currentPlayer.handGrid.value.transform);
+                for (int j = 0; j < Players[i].StartingCards.Length; j++)
+                {
+                    GameObject cardObject = Instantiate(cardPrefab) as GameObject;
+                    CardVisual visual = cardObject.GetComponent<CardVisual>();
+                    visual.LoadCard(manager.GetCardInstance(Players[i].StartingCards[j]));
+                    CardInstance cardInstance = cardObject.GetComponent<CardInstance>();
+                    cardInstance.currentLogic = CurrentPlayer.handLogic;
+                    Settings.SetParentForCard(cardObject.transform, Players[i].CurrentCardHolder.HandGrid.value.transform);
+                    Players[i].HandCards.Add(cardInstance);
+                }
             }
+            
         }
+
+        public bool SwitchPlayer;
 
         private void Update()
         {
+            if (SwitchPlayer)
+            {
+                SwitchPlayer = false;
+                UserPlayerCardHolder.LoadPlayer(Players[1]);
+                EnemyPlayerCardHolder.LoadPlayer(Players[0]);
+            }
+
             bool isComplete = turns[turnIndex].Execute();
 
             if (isComplete)
@@ -66,5 +101,9 @@ namespace PL
             currentState = state;
         }
 
+        public void EndPhase()
+        {
+            turns[turnIndex].EndCurrentPhase();
+        }
     }
 }

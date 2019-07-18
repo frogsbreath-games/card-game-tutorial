@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: User Player
   m_EditorClassIdentifier: 
   Username: Pierce
-  startingCards:
+  StartingCards:
   - Boar
   - Boar
   - Frog
   - OctopusPower
   - OctopusPower
   - OctopusPower
-  handGrid: {fileID: 11400000, guid: d5517401391cd7b4ba514deeb907ba77, type: 2}
-  ResourceGrid: {fileID: 11400000, guid: 6f533570d352ff84988bb2bb24b0206f, type: 2}
-  playedGrid: {fileID: 11400000, guid: 4b7cd9cded4395e48ba96a455e80f329, type: 2}
+  - OctopusPower
+  IsHuman: 1
   handLogic: {fileID: 11400000, guid: f6efd306dfa55e54bb498028ae938023, type: 2}
   playedLogic: {fileID: 11400000, guid: 24e6d281804b9684a892924e3aab1cff, type: 2}
+  ResourcesPerTurn: 1

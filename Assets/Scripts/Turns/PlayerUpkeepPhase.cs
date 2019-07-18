@@ -8,7 +8,7 @@ namespace PL
     {
         public override bool IsComplete()
         {
-            Settings.gameManager.currentPlayer.RefreshPlayerResource();
+            Settings.gameManager.CurrentPlayer.RefreshPlayerResource();
             return true;
         }
 
