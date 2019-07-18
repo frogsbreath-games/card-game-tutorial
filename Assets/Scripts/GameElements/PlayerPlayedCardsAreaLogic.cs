@@ -6,7 +6,7 @@ namespace PL
     [CreateAssetMenu(menuName = "Areas/PlayedCardAreaWhenHoldingCard")]
     public class PlayerPlayedCardsAreaLogic : AreaLogic
     {
-        public CardVariable card;
+        public CardVariable CardVariable;
         public CardType creatureType;
         public CardType ResourceType;
         public SO.TransformVariable areaGrid;
@@ -15,21 +15,33 @@ namespace PL
 
         public override void Execute()
         {
-            if(card.value == null) { return; }
+            if(CardVariable.value == null) { return; }
 
-            if(card.value.visual.card.cardType == creatureType)
+            Card card = CardVariable.value.visual.card;
+
+            bool canPlay = Settings.gameManager.currentPlayer.CanPlayCard(card);
+
+            if (card.cardType == creatureType)
             {
 
-                Settings.SetParentForCard(card.value.transform, areaGrid.value.transform);
-                card.value.currentLogic = playedCardLogic;
-                card.value.gameObject.SetActive(true);
+                if (canPlay)
+                {
+                    Settings.PlayCreatureCard(CardVariable.value.transform, areaGrid.value.transform, card);
+                    CardVariable.value.currentLogic = playedCardLogic;
+                }
+                
+                CardVariable.value.gameObject.SetActive(true);
             }
-            else if (card.value.visual.card.cardType == ResourceType)
+            else if (card.cardType == ResourceType)
             {
-                Settings.SetParentForCard(card.value.transform, ResourceGrid.value.transform);
-                card.value.currentLogic = playedCardLogic;
-                card.value.gameObject.SetActive(true);
-            }
+                if (canPlay)
+                {
+                    Settings.SetParentForCard(CardVariable.value.transform, ResourceGrid.value.transform);
+                    Settings.gameManager.currentPlayer.AddResourceCard(CardVariable.value.gameObject);
+                    CardVariable.value.currentLogic = playedCardLogic;
+                }
+                CardVariable.value.gameObject.SetActive(true);
+            } 
 
         }
     }

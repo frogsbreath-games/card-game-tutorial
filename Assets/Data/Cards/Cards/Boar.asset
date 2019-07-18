@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Boar
   m_EditorClassIdentifier: 
   cardType: {fileID: 11400000, guid: c9a889cc26871d74fa38e0771c24f28c, type: 2}
+  ResourceCost: 1
   cardProperties:
   - stringValue: Boar Card
     intValue: 0

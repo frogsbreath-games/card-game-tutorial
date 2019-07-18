@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Frog
   m_EditorClassIdentifier: 
   cardType: {fileID: 11400000, guid: 12525e8018c556e45b9073aff124e19b, type: 2}
+  ResourceCost: 2
   cardProperties:
   - stringValue: Frog
     intValue: 0
@@ -31,7 +32,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
     cardElement: {fileID: 11400000, guid: ab5746b5916d09f4fbf2e95125d670ef, type: 2}
   - stringValue: Resource
-    intValue: 1
+    intValue: 2
     sprite: {fileID: 0}
     cardElement: {fileID: 11400000, guid: 4d21b56787604d1459e6fe6dd4eebe37, type: 2}
   - stringValue: Attack

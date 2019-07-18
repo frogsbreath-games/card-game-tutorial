@@ -7,6 +7,7 @@ namespace PL
     public class Card : ScriptableObject
     {
         public CardType cardType;
+        public int ResourceCost;
         public CardProperty[] cardProperties;
 
     }

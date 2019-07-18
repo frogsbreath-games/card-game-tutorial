@@ -36,6 +36,12 @@ namespace PL
             return results;
         }
 
+        public static void PlayCreatureCard(Transform c, Transform p, Card card)
+        {
+            SetParentForCard(c, p);
+            gameManager.currentPlayer.SpendResource(card.ResourceCost);
+        }
+
         public static void SetParentForCard(Transform c, Transform p)
         {
             c.SetParent(p);
