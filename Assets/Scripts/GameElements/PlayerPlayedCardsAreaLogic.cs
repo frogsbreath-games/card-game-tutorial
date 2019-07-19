@@ -29,7 +29,11 @@ namespace PL
                     Settings.PlayCreatureCard(CardVariable.value.transform, areaGrid.value.transform, CardVariable.value);
                     CardVariable.value.currentLogic = playedCardLogic;
                 }
-                
+                else
+                {
+                    Settings.RegisterEvent(Settings.gameManager.CurrentPlayer.Username + " not enough resource to play card.", Settings.gameManager.CurrentPlayer.PlayerColor);
+                }
+
                 CardVariable.value.gameObject.SetActive(true);
             }
             else if (card.cardType == ResourceType)
@@ -39,6 +43,10 @@ namespace PL
                     Settings.SetParentForCard(CardVariable.value.transform, ResourceGrid.value.transform);
                     Settings.gameManager.CurrentPlayer.AddResourceCard(CardVariable.value.gameObject);
                     CardVariable.value.currentLogic = playedCardLogic;
+                }
+                else
+                {
+                    Settings.RegisterEvent(Settings.gameManager.CurrentPlayer.Username + " can only play one resource card per turn.", Settings.gameManager.CurrentPlayer.PlayerColor);
                 }
                 CardVariable.value.gameObject.SetActive(true);
             } 

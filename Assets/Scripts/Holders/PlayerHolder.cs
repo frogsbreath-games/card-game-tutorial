@@ -11,6 +11,8 @@ namespace PL
 
         public bool IsHuman;
 
+        public Color PlayerColor;
+
         public GameElements.GameElementLogic handLogic;
         public GameElements.GameElementLogic playedLogic;
 
@@ -59,6 +61,7 @@ namespace PL
 
             PlayedCards.Add(cardInstance);
 
+            Settings.RegisterEvent(Username + " dropped card " + cardInstance.visual.card.name + " resouce cost " + cardInstance.visual.card.ResourceCost, PlayerColor);
         }
 
         public void AddResourceCard(GameObject card)
@@ -70,6 +73,8 @@ namespace PL
 
             ResourceHolderList.Add(resourceHolder);
             ResourcesPlayedThisTurn++;
+
+            Settings.RegisterEvent(Username + " dropped resource card." , PlayerColor);
         }
 
         public bool CanPlayCard(Card c)

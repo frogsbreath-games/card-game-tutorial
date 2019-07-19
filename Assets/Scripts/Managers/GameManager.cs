@@ -60,8 +60,9 @@ namespace PL
                     Settings.SetParentForCard(cardObject.transform, Players[i].CurrentCardHolder.HandGrid.value.transform);
                     Players[i].HandCards.Add(cardInstance);
                 }
+                Settings.RegisterEvent("Created Starting Cards for Player: " + Players[i].Username, Players[i].PlayerColor);
             }
-            
+
         }
 
         public bool SwitchPlayer;
@@ -104,6 +105,8 @@ namespace PL
         public void EndPhase()
         {
             turns[turnIndex].EndCurrentPhase();
+
+            Settings.RegisterEvent("Phase: " + turns[turnIndex].name + " ended.", CurrentPlayer.PlayerColor);
         }
     }
 }

@@ -11,6 +11,18 @@ namespace PL
 
         private static ResourcesManager _resourceManager;
 
+        private static ConsoleHook _consoleManager;
+
+        public static void RegisterEvent(string s, Color color = default)
+        {
+            if(_consoleManager == null)
+            {
+                _consoleManager = Resources.Load("ConsoleHook") as ConsoleHook;
+            }
+
+            _consoleManager.RegisterEvent(s,color);
+        }
+
         public static ResourcesManager GetResourcesManager()
         {
             if (_resourceManager == null)
