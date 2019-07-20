@@ -20,6 +20,13 @@ namespace PL
         public int turnIndex;
         public Turn[] turns;
 
+        public static GameManager Singleton;
+
+        private void Awake()
+        {
+            Singleton = this;
+        }
+
         private void Start()
         {
             Settings.gameManager = this;

@@ -5,6 +5,9 @@ namespace PL
     [CreateAssetMenu(menuName = "Turns/Player Battle Phase")]
     public class PlayerBattlePhase : Phase
     {
+        public GameStates.State BattleControlState;
+        public GameStates.Condition IsBattleValid;
+
         public override bool IsComplete()
         {
             if (forceExit)
@@ -28,9 +31,12 @@ namespace PL
         {
             if (!isInit)
             {
-                Settings.gameManager.SetState(null);
-                Settings.gameManager.onPhaseChange.Raise();
-                isInit = true;
+                    forceExit = !IsBattleValid.IsValid();
+                    Settings.gameManager.SetState(!forceExit ? BattleControlState : null);
+                    Settings.gameManager.onPhaseChange.Raise();
+                    isInit = true;
+
+
             }
         }
     }

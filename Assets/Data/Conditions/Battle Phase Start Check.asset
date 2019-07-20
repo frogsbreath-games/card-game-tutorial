@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64b9341ab94506d458762d41015f1526, type: 3}
-  m_Name: Player Battle Phase
+  m_Script: {fileID: 11500000, guid: 0848df7e7d2bd3b4c9e670728398db03, type: 3}
+  m_Name: Battle Phase Start Check
   m_EditorClassIdentifier: 
-  phaseName: Battle Phase
-  forceExit: 0
-  BattleControlState: {fileID: 11400000, guid: 183b17d58cb1a0748b4e32bf5c484bc2, type: 2}
-  IsBattleValid: {fileID: 0}
