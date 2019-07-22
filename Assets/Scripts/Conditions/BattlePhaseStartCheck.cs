@@ -10,8 +10,18 @@ namespace PL
         public override bool IsValid()
         {
             GameManager gameManager = GameManager.Singleton;
+            PlayerHolder playerHolder = gameManager.CurrentPlayer;
 
-            if (gameManager.CurrentPlayer.PlayedCards.Count > 0)
+            int NonExhaustedCreatures = 0;
+            for (int i = 0; i < playerHolder.PlayedCards.Count; i++)
+            {
+                if (!playerHolder.PlayedCards[i].IsExhausted)
+                {
+                    NonExhaustedCreatures++;
+                }
+            }
+
+            if (NonExhaustedCreatures > 0)
             {
                 return true;
             }

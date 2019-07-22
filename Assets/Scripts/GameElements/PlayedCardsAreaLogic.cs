@@ -4,7 +4,7 @@ using System.Collections;
 namespace PL
 {
     [CreateAssetMenu(menuName = "Areas/PlayedCardAreaWhenHoldingCard")]
-    public class PlayerPlayedCardsAreaLogic : AreaLogic
+    public class PlayedCardsAreaLogic : AreaLogic
     {
         public CardVariable CardVariable;
         public CardType creatureType;

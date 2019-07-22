@@ -15,6 +15,21 @@ namespace PL
 
         public Phase[] phases;
 
+        public PlayerAction[] TurnStartActions;
+
+        public void OnTurnStart()
+        {
+            if (TurnStartActions == null)
+            {
+                return;
+            }
+
+            foreach (PlayerAction action in TurnStartActions)
+            {
+                action.Execute(Player);
+            }
+        }
+
         public bool Execute()
         {
             bool result = false;

@@ -6,6 +6,7 @@ namespace PL
 {
     public class GameManager : MonoBehaviour
     {
+        [System.NonSerialized]
         public PlayerHolder[] Players;
         public PlayerHolder CurrentPlayer;
 
@@ -17,14 +18,20 @@ namespace PL
         public SO.GameEvent onPhaseChange;
         public SO.StringVariable TurnName;
 
-        public int turnIndex;
-        public Turn[] turns;
+        public int TurnIndex;
+        public Turn[] Turns;
 
         public static GameManager Singleton;
 
         private void Awake()
         {
             Singleton = this;
+
+            Players = new PlayerHolder[Turns.Length];
+            for (int i = 0; i < Players.Length; i++)
+            {
+                Players[i] = Turns[i].Player;
+            }
         }
 
         private void Start()
@@ -33,7 +40,7 @@ namespace PL
 
             SetupPlayers();
             CreateStartingCards();
-            TurnName.value = turns[turnIndex].Player.Username;
+            TurnName.value = Turns[TurnIndex].Player.Username;
             onTurnChange.Raise();
         }
         void SetupPlayers()
@@ -83,18 +90,21 @@ namespace PL
                 EnemyPlayerCardHolder.LoadPlayer(Players[0]);
             }
 
-            bool isComplete = turns[turnIndex].Execute();
+            bool isComplete = Turns[TurnIndex].Execute();
 
             if (isComplete)
             {
-                turnIndex++;
+                TurnIndex++;
 
-                if (turnIndex > turns.Length -1)
+                if (TurnIndex > Turns.Length -1)
                 {
-                    turnIndex = 0;
+                    TurnIndex = 0;
                 }
 
-                TurnName.value = turns[turnIndex].Player.Username;
+                //Player change here
+                CurrentPlayer = Turns[TurnIndex].Player;
+                Turns[TurnIndex].OnTurnStart();
+                TurnName.value = Turns[TurnIndex].Player.Username;
                 onTurnChange.Raise();
             }
 
@@ -111,9 +121,9 @@ namespace PL
 
         public void EndPhase()
         {
-            turns[turnIndex].EndCurrentPhase();
+            Turns[TurnIndex].EndCurrentPhase();
 
-            Settings.RegisterEvent("Phase: " + turns[turnIndex].name + " ended.", CurrentPlayer.PlayerColor);
+            Settings.RegisterEvent("Phase: " + Turns[TurnIndex].name + " ended.", CurrentPlayer.PlayerColor);
         }
     }
 }

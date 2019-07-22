@@ -50,7 +50,13 @@ namespace PL
 
         public static void PlayCreatureCard(Transform c, Transform p, CardInstance cardInstance)
         {
+            cardInstance.IsExhausted = true;
             SetParentForCard(c, p);
+            //Execute OnDrop Abilities
+            if (cardInstance.IsExhausted)
+            {
+                cardInstance.transform.localEulerAngles = new Vector3(0, 0, 90);
+            }
             gameManager.CurrentPlayer.SpendResource(cardInstance.visual.card.ResourceCost);
             gameManager.CurrentPlayer.DropCard(cardInstance);
         }

@@ -7,6 +7,7 @@ namespace PL
     {
         public PL.GameElements.GameElementLogic currentLogic;
         public CardVisual visual;
+        public bool IsExhausted;
 
         public void Start()
         {
