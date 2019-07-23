@@ -7,6 +7,10 @@ namespace PL
     public class PlayerHolder : ScriptableObject
     {
         public string Username;
+        public Sprite Portrait;
+        public int Health = 20;
+        public PlayerStatsVisual Visual;
+
         public string[] StartingCards;
 
         public bool IsHuman;
