@@ -9,6 +9,7 @@ namespace PL
         public SO.TransformVariable HandGrid;
         public SO.TransformVariable ResourceGrid;
         public SO.TransformVariable PlayedGrid;
+        public SO.TransformVariable AttackingLine;
 
         public void LoadPlayer(PlayerHolder player)
         {
@@ -26,6 +27,17 @@ namespace PL
             {
                 Settings.SetParentForCard(resourceCard.ResourceCard.transform, ResourceGrid.value.transform);
             }
+        }
+
+        public void SetCardOnBattleLine(CardInstance card)
+        {
+            Vector3 position = card.visual.gameObject.transform.position;
+
+            Settings.SetParentForCard(card.visual.gameObject.transform, AttackingLine.value.transform);
+            position.z = card.visual.gameObject.transform.position.z;
+            position.y = card.visual.gameObject.transform.position.y;
+
+            card.visual.gameObject.transform.position = position;
         }
     }
 }

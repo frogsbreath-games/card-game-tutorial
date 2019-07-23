@@ -15,3 +15,4 @@ MonoBehaviour:
   HandGrid: {fileID: 11400000, guid: c62c49941cb90624fa4ff66582eba878, type: 2}
   ResourceGrid: {fileID: 11400000, guid: 68ca87f808c63ff4692de9d1f058f3f8, type: 2}
   PlayedGrid: {fileID: 11400000, guid: d51181d0a754afa48a16acd1e7940c1e, type: 2}
+  AttackingLine: {fileID: 11400000, guid: 21dc3ea57d0bcc94793368410824771e, type: 2}

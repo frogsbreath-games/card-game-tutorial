@@ -27,5 +27,22 @@ namespace PL
             //Vector3 s = Vector3.one * 2;
             //this.transform.localScale = s;
         }
+
+        public bool CanAttack()
+        {
+            bool result = true;
+
+            if (IsExhausted)
+            {
+                result = false;
+            }
+
+            if (visual.card.cardType.TypeCanAttack(this))
+            {
+                result = true;
+            }
+
+            return result;
+        }
     }
 }

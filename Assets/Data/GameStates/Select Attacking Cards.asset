@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c35383839b8287544acbfe2385b2277f, type: 3}
-  m_Name: Reset Exhausted Cards
+  m_Script: {fileID: 11500000, guid: 74ac08ea7b4022d41bf301e39d6775cb, type: 3}
+  m_Name: Select Attacking Cards
   m_EditorClassIdentifier: 

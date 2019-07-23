@@ -33,6 +33,9 @@ namespace PL
         [System.NonSerialized]
         public List<ResourceHolder> ResourceHolderList = new List<ResourceHolder>();
 
+        [System.NonSerialized]
+        public List<CardInstance> AttackingCards = new List<CardInstance>();
+
         public int ResourceCount
         {
             get { return CurrentCardHolder.ResourceGrid.value.GetComponentsInChildren<CardVisual>().Length; }

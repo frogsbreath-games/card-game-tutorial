@@ -22,7 +22,7 @@ MonoBehaviour:
   - OctopusPower
   - OctopusPower
   IsHuman: 1
-  PlayerColor: {r: 1, g: 1, b: 1, a: 1}
+  PlayerColor: {r: 0.8551874, g: 0, b: 1, a: 1}
   handLogic: {fileID: 11400000, guid: f6efd306dfa55e54bb498028ae938023, type: 2}
   playedLogic: {fileID: 11400000, guid: 24e6d281804b9684a892924e3aab1cff, type: 2}
   ResourcesPerTurn: 1

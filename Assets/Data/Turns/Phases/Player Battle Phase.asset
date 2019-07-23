@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   phaseName: Battle Phase
   forceExit: 0
-  BattleControlState: {fileID: 0}
+  BattleControlState: {fileID: 11400000, guid: 3d5583b94d08eed40a09bdc06be0fdae, type: 2}
   IsBattleValid: {fileID: 11400000, guid: 780288819066da44bacd84352d032abc, type: 2}
