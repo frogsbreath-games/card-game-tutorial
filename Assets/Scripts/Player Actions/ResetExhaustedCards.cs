@@ -12,8 +12,7 @@ namespace PL
             {
                 if (instance.IsExhausted)
                 {
-                    instance.visual.transform.localEulerAngles = Vector3.zero;
-                    instance.IsExhausted = false;
+                    instance.SetExhausted(false);
                 }
             }
         }

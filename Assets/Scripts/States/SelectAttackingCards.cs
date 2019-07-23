@@ -26,7 +26,7 @@ namespace PL
                         return;
                     }
 
-                    if (instance.CanAttack())
+                    if (instance.CanAttack() && !player.AttackingCards.Contains(instance))
                     {
                         //Can Attack
                         player.AttackingCards.Add(instance);

@@ -8,6 +8,8 @@ namespace PL
     {
         public string Username;
         public Sprite Portrait;
+
+        [System.NonSerialized]
         public int Health = 20;
         public PlayerStatsVisual Visual;
 
@@ -40,6 +42,11 @@ namespace PL
         [System.NonSerialized]
         public List<CardInstance> AttackingCards = new List<CardInstance>();
 
+        public void OnEnable()
+        {
+            Health = 20;
+        }
+
         public int ResourceCount
         {
             get { return CurrentCardHolder.ResourceGrid.value.GetComponentsInChildren<CardVisual>().Length; }
@@ -59,7 +66,7 @@ namespace PL
             return resourceCount;
         }
 
-        public void DropCard(CardInstance cardInstance)
+        public void DropCard(CardInstance cardInstance, bool registerEvent = true)
         {
             if (HandCards.Contains(cardInstance))
             {
@@ -68,7 +75,10 @@ namespace PL
 
             PlayedCards.Add(cardInstance);
 
-            Settings.RegisterEvent(Username + " dropped card " + cardInstance.visual.card.name + " resouce cost " + cardInstance.visual.card.ResourceCost, PlayerColor);
+            if (registerEvent)
+            {
+                Settings.RegisterEvent(Username + " dropped card " + cardInstance.visual.card.name + " resouce cost " + cardInstance.visual.card.ResourceCost, PlayerColor);
+            }
         }
 
         public void AddResourceCard(GameObject card)
@@ -163,5 +173,14 @@ namespace PL
                 Visual.UpdateHealth();
             }
         }
+
+        public void ResetAttackingCards()
+        {
+            for (int i = 0; i < AttackingCards.Count; i++)
+            {
+                
+            }
+        }
+
     }
 }

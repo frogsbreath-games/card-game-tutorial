@@ -9,6 +9,20 @@ namespace PL
         public CardVisual visual;
         public bool IsExhausted;
 
+        public void SetExhausted(bool exhausted)
+        {
+            IsExhausted = exhausted;
+
+            if (IsExhausted)
+            {
+                transform.localEulerAngles = new Vector3(0, 0, 90);
+            }
+            else
+            {
+                transform.localEulerAngles = Vector3.zero;
+            }
+        }
+
         public void Start()
         {
             visual = GetComponent<CardVisual>();
@@ -16,7 +30,7 @@ namespace PL
 
         public void OnClick()
         {
-            if (currentLogic == null) return;
+            if (currentLogic == null) { return; }
             currentLogic.OnClick(this);
         }
 
@@ -32,14 +46,14 @@ namespace PL
         {
             bool result = true;
 
-            if (IsExhausted)
-            {
-                result = false;
-            }
-
             if (visual.card.cardType.TypeCanAttack(this))
             {
                 result = true;
+            }
+
+            if (IsExhausted)
+            {
+                result = false;
             }
 
             return result;

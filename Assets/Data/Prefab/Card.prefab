@@ -1410,4 +1410,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLogic: {fileID: 0}
   visual: {fileID: 0}
-  IsUsable: 0
+  IsExhausted: 0

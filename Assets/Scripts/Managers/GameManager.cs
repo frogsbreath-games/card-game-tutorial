@@ -10,6 +10,19 @@ namespace PL
         public PlayerHolder[] Players;
         public PlayerHolder CurrentPlayer;
 
+        public PlayerHolder GetOpponentOf(PlayerHolder currentPlayer)
+        {
+            for (int i = 0; i < Players.Length; i++)
+            {
+                if(Players[i] != currentPlayer)
+                {
+                    return Players[i];
+                }
+            }
+
+            return null;
+        }
+
         public CardHolder UserPlayerCardHolder;
         public CardHolder EnemyPlayerCardHolder;
         public State currentState;

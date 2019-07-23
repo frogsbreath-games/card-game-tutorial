@@ -10,5 +10,17 @@ namespace PL
         public int ResourceCost;
         public CardProperty[] cardProperties;
 
+        public CardProperty GetProperty(CardElement element)
+        {
+            for (int i = 0; i < cardProperties.Length; i++)
+            {
+                if (cardProperties[i].cardElement == element)
+                {
+                    return cardProperties[i];
+                }
+            }
+
+            return null;
+        }
     }
 }

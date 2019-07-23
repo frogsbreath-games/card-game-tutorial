@@ -11,8 +11,13 @@ namespace PL
         public SO.TransformVariable PlayedGrid;
         public SO.TransformVariable AttackingLine;
 
+        [System.NonSerialized]
+        public PlayerHolder Player;
+
         public void LoadPlayer(PlayerHolder player, PlayerStatsVisual statVisual)
         {
+            Player = player;
+
             foreach (CardInstance card in player.HandCards)
             {
                 Settings.SetParentForCard(card.visual.gameObject.transform, HandGrid.value.transform);
@@ -40,6 +45,11 @@ namespace PL
             position.y = card.visual.gameObject.transform.position.y;
 
             card.visual.gameObject.transform.position = position;
+        }
+
+        public void SetCardDown(CardInstance card)
+        {
+            Settings.SetParentForCard(card.visual.gameObject.transform, PlayedGrid.value.transform);
         }
     }
 }
