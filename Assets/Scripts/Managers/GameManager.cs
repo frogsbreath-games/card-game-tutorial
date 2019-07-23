@@ -20,6 +20,7 @@ namespace PL
 
         public int TurnIndex;
         public Turn[] Turns;
+        public PlayerStatsVisual[] PlayerStatVisuals;
 
         public static GameManager Singleton;
 
@@ -45,17 +46,19 @@ namespace PL
         }
         void SetupPlayers()
         {
-            foreach (PlayerHolder player in Players)
+            for (int i = 0; i < Players.Length; i++)
             {
-                if (player.IsHuman)
+                if (Players[i].IsHuman)
                 {
-                    player.CurrentCardHolder = UserPlayerCardHolder;
+                    Players[i].CurrentCardHolder = UserPlayerCardHolder;
                 }
                 else
                 {
-                    player.CurrentCardHolder = EnemyPlayerCardHolder;
+                    Players[i].CurrentCardHolder = EnemyPlayerCardHolder;
                 }
 
+                Players[i].Visual = PlayerStatVisuals[i];
+                PlayerStatVisuals[i].Player.LoadPlayerStatsVisual();
             }
         }
 
@@ -86,8 +89,8 @@ namespace PL
             if (SwitchPlayer)
             {
                 SwitchPlayer = false;
-                UserPlayerCardHolder.LoadPlayer(Players[1]);
-                EnemyPlayerCardHolder.LoadPlayer(Players[0]);
+                UserPlayerCardHolder.LoadPlayer(Players[1], PlayerStatVisuals[1]);
+                EnemyPlayerCardHolder.LoadPlayer(Players[0], PlayerStatVisuals[0]);
             }
 
             bool isComplete = Turns[TurnIndex].Execute();

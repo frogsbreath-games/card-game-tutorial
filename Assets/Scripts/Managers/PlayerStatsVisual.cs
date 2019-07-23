@@ -12,13 +12,7 @@ namespace PL
         public Text Health;
         public Text Username;
 
-        private void Start()
-        {
-            UpdateUser(Player);
-            Player.Visual = this;
-        }
-
-        public void UpdateUser()
+        public void UpdatePlayer()
         {
             Username.text = Player.Username;
             Portrait.sprite = Player.Portrait;
@@ -29,5 +23,10 @@ namespace PL
             Health.text = Player.Health.ToString();
         }
 
+        public void UpdateAll()
+        {
+            UpdatePlayer();
+            UpdateHealth();
+        }
     }
 }

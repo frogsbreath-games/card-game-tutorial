@@ -31,6 +31,7 @@ namespace PL
                         //Can Attack
                         player.AttackingCards.Add(instance);
                         player.CurrentCardHolder.SetCardOnBattleLine(instance);
+                        Settings.RegisterEvent($"{instance.visual.card.name} is attacking.", player.PlayerColor);
                     }
                 }
             }

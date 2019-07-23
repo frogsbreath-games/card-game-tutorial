@@ -145,5 +145,23 @@ namespace PL
 
             ResourcesPlayedThisTurn = 0;
         }
+
+        public void LoadPlayerStatsVisual()
+        {
+            if(Visual != null)
+            {
+                Visual.Player = this;
+                Visual.UpdateAll();
+            }
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
+            if (Visual != null)
+            {
+                Visual.UpdateHealth();
+            }
+        }
     }
 }

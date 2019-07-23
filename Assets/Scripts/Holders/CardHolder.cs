@@ -11,7 +11,7 @@ namespace PL
         public SO.TransformVariable PlayedGrid;
         public SO.TransformVariable AttackingLine;
 
-        public void LoadPlayer(PlayerHolder player)
+        public void LoadPlayer(PlayerHolder player, PlayerStatsVisual statVisual)
         {
             foreach (CardInstance card in player.HandCards)
             {
@@ -27,6 +27,8 @@ namespace PL
             {
                 Settings.SetParentForCard(resourceCard.ResourceCard.transform, ResourceGrid.value.transform);
             }
+
+            player.Visual = statVisual;
         }
 
         public void SetCardOnBattleLine(CardInstance card)
