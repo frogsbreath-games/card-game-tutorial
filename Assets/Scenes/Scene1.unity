@@ -3367,7 +3367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29ee7595ddc27a4596fb4dcca81aa45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 11400000, guid: 4f78d0dd0b8f8b549a54a1875bbc6c1a, type: 2}
+  Player: {fileID: 11400000, guid: 9fc6d71999979d145adf229c4ac0c6fb, type: 2}
   Portrait: {fileID: 1031614084}
   Health: {fileID: 792630966}
   Username: {fileID: 1151224774}
