@@ -173,14 +173,5 @@ namespace PL
                 Visual.UpdateHealth();
             }
         }
-
-        public void ResetAttackingCards()
-        {
-            for (int i = 0; i < AttackingCards.Count; i++)
-            {
-                
-            }
-        }
-
     }
 }

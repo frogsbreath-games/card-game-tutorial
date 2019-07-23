@@ -16,11 +16,15 @@ namespace PL
 
         public void LoadPlayer(PlayerHolder player, PlayerStatsVisual statVisual)
         {
+            if(player == null) { return; }
             Player = player;
 
             foreach (CardInstance card in player.HandCards)
             {
-                Settings.SetParentForCard(card.visual.gameObject.transform, HandGrid.value.transform);
+                if (card.visual != null)
+                {
+                    Settings.SetParentForCard(card.visual.gameObject.transform, HandGrid.value.transform);
+                }
             }
 
             foreach (CardInstance card in player.PlayedCards)
@@ -34,6 +38,7 @@ namespace PL
             }
 
             player.Visual = statVisual;
+            player.LoadPlayerStatsVisual();
         }
 
         public void SetCardOnBattleLine(CardInstance card)

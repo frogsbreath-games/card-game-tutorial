@@ -57,11 +57,21 @@ namespace PL
             TurnName.value = Turns[TurnIndex].Player.Username;
             onTurnChange.Raise();
         }
+
         void SetupPlayers()
         {
             for (int i = 0; i < Players.Length; i++)
             {
-                if (Players[i].IsHuman)
+                //if (Players[i].IsHuman)
+                //{
+                //    Players[i].CurrentCardHolder = UserPlayerCardHolder;
+                //}
+                //else
+                //{
+                //    Players[i].CurrentCardHolder = EnemyPlayerCardHolder;
+                //}
+
+                if(i == 0)
                 {
                     Players[i].CurrentCardHolder = UserPlayerCardHolder;
                 }
@@ -70,8 +80,11 @@ namespace PL
                     Players[i].CurrentCardHolder = EnemyPlayerCardHolder;
                 }
 
-                Players[i].Visual = PlayerStatVisuals[i];
-                PlayerStatVisuals[i].Player.LoadPlayerStatsVisual();
+                if (i < 2)
+                {
+                    Players[i].Visual = PlayerStatVisuals[i];
+                    PlayerStatVisuals[i].Player.LoadPlayerStatsVisual();
+                }
             }
         }
 
@@ -90,9 +103,27 @@ namespace PL
                     Settings.SetParentForCard(cardObject.transform, Players[i].CurrentCardHolder.HandGrid.value.transform);
                     Players[i].HandCards.Add(cardInstance);
                 }
+
+                Players[i].CurrentCardHolder.LoadPlayer(Players[i], Players[i].Visual);
+
                 Settings.RegisterEvent("Created Starting Cards for Player: " + Players[i].Username, Players[i].PlayerColor);
             }
 
+        }
+
+        public void LoadPlayerActive(PlayerHolder player)
+        {
+            if (UserPlayerCardHolder.Player != player)
+            {
+                PlayerHolder previousPlayer = UserPlayerCardHolder.Player;
+                LoadPlayerHolder(previousPlayer, EnemyPlayerCardHolder, PlayerStatVisuals[1]);
+                LoadPlayerHolder(player, UserPlayerCardHolder, PlayerStatVisuals[0]);
+            }
+        }
+
+        public void LoadPlayerHolder(PlayerHolder player, CardHolder cardHolder, PlayerStatsVisual visual)
+        {
+            cardHolder.LoadPlayer(player, visual);
         }
 
         public bool SwitchPlayer;
