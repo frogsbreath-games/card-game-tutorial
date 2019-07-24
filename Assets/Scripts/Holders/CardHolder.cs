@@ -18,6 +18,7 @@ namespace PL
         {
             if(player == null) { return; }
             Player = player;
+            Player.CurrentCardHolder = this;
 
             foreach (CardInstance card in player.HandCards)
             {

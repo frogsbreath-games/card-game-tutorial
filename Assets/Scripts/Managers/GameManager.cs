@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using PL.GameStates;
+﻿using PL.GameStates;
+using UnityEngine;
 
 namespace PL
 {
@@ -46,6 +45,8 @@ namespace PL
             {
                 Players[i] = Turns[i].Player;
             }
+
+            CurrentPlayer = Turns[0].Player;
         }
 
         private void Start()
@@ -53,24 +54,18 @@ namespace PL
             Settings.gameManager = this;
 
             SetupPlayers();
-            CreateStartingCards();
+            Turns[0].OnTurnStart();
             TurnName.value = Turns[TurnIndex].Player.Username;
             onTurnChange.Raise();
         }
 
         void SetupPlayers()
         {
+            ResourcesManager manager = Settings.GetResourcesManager();
+
             for (int i = 0; i < Players.Length; i++)
             {
-                //if (Players[i].IsHuman)
-                //{
-                //    Players[i].CurrentCardHolder = UserPlayerCardHolder;
-                //}
-                //else
-                //{
-                //    Players[i].CurrentCardHolder = EnemyPlayerCardHolder;
-                //}
-
+                Players[i].Init();
                 if(i == 0)
                 {
                     Players[i].CurrentCardHolder = UserPlayerCardHolder;
@@ -80,45 +75,17 @@ namespace PL
                     Players[i].CurrentCardHolder = EnemyPlayerCardHolder;
                 }
 
-                if (i < 2)
-                {
-                    Players[i].Visual = PlayerStatVisuals[i];
-                    PlayerStatVisuals[i].Player.LoadPlayerStatsVisual();
-                }
-            }
-        }
-
-        void CreateStartingCards()
-        {
-            ResourcesManager manager = Settings.GetResourcesManager();
-            for (int i = 0; i < Players.Length; i++)
-            {
-                for (int j = 0; j < Players[i].StartingCards.Length; j++)
-                {
-                    GameObject cardObject = Instantiate(cardPrefab) as GameObject;
-                    CardVisual visual = cardObject.GetComponent<CardVisual>();
-                    visual.LoadCard(manager.GetCardInstance(Players[i].StartingCards[j]));
-                    CardInstance cardInstance = cardObject.GetComponent<CardInstance>();
-                    cardInstance.currentLogic = CurrentPlayer.handLogic;
-                    Settings.SetParentForCard(cardObject.transform, Players[i].CurrentCardHolder.HandGrid.value.transform);
-                    Players[i].HandCards.Add(cardInstance);
-                }
-
+                Players[i].Visual = PlayerStatVisuals[i];
                 Players[i].CurrentCardHolder.LoadPlayer(Players[i], Players[i].Visual);
-
-                Settings.RegisterEvent("Created Starting Cards for Player: " + Players[i].Username, Players[i].PlayerColor);
             }
-
         }
+
 
         public void LoadPlayerActive(PlayerHolder player)
         {
-            if (UserPlayerCardHolder.Player != player)
-            {
                 PlayerHolder previousPlayer = UserPlayerCardHolder.Player;
                 LoadPlayerHolder(previousPlayer, EnemyPlayerCardHolder, PlayerStatVisuals[1]);
                 LoadPlayerHolder(player, UserPlayerCardHolder, PlayerStatVisuals[0]);
-            }
         }
 
         public void LoadPlayerHolder(PlayerHolder player, CardHolder cardHolder, PlayerStatsVisual visual)
@@ -126,17 +93,8 @@ namespace PL
             cardHolder.LoadPlayer(player, visual);
         }
 
-        public bool SwitchPlayer;
-
         private void Update()
         {
-            if (SwitchPlayer)
-            {
-                SwitchPlayer = false;
-                UserPlayerCardHolder.LoadPlayer(Players[1], PlayerStatVisuals[1]);
-                EnemyPlayerCardHolder.LoadPlayer(Players[0], PlayerStatVisuals[0]);
-            }
-
             bool isComplete = Turns[TurnIndex].Execute();
 
             if (isComplete)
@@ -171,6 +129,27 @@ namespace PL
             Turns[TurnIndex].EndCurrentPhase();
 
             Settings.RegisterEvent("Phase: " + Turns[TurnIndex].name + " ended.", CurrentPlayer.PlayerColor);
+        }
+
+        public void DrawCardFromDeck(PlayerHolder player)
+        {
+            ResourcesManager manager = Settings.GetResourcesManager();
+
+            if (player.AllCards.Count == 0)
+            {
+                Settings.RegisterEvent($"{player.Username} has run out of cards", player.PlayerColor);
+                return;
+            }
+
+            string cardId = player.AllCards[0];
+            player.AllCards.RemoveAt(0);
+            GameObject cardObject = Instantiate(cardPrefab) as GameObject;
+            CardVisual visual = cardObject.GetComponent<CardVisual>();
+            visual.LoadCard(manager.GetCardInstance(cardId));
+            CardInstance cardInstance = cardObject.GetComponent<CardInstance>();
+            cardInstance.currentLogic = CurrentPlayer.handLogic;
+            Settings.SetParentForCard(cardObject.transform, player.CurrentCardHolder.HandGrid.value.transform);
+            player.HandCards.Add(cardInstance);
         }
     }
 }

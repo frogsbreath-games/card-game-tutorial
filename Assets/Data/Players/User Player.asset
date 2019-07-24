@@ -15,10 +15,10 @@ MonoBehaviour:
   Username: Local 1
   Portrait: {fileID: 21300000, guid: 5912b4c7beb84cd43a89e4a90fb98ec1, type: 3}
   Visual: {fileID: 0}
-  StartingCards:
-  - Boar
-  - Boar
+  DeckCards:
   - Frog
+  - Boar
+  - Boar
   - OctopusPower
   - OctopusPower
   - OctopusPower

@@ -13,7 +13,10 @@ namespace PL
         public int Health = 20;
         public PlayerStatsVisual Visual;
 
-        public string[] StartingCards;
+        //public string[] StartingCards;
+        public List<string> DeckCards = new List<string>();
+        [System.NonSerialized]
+        public List<string> AllCards = new List<string>();
 
         public bool IsHuman;
 
@@ -42,9 +45,16 @@ namespace PL
         [System.NonSerialized]
         public List<CardInstance> AttackingCards = new List<CardInstance>();
 
-        public void OnEnable()
+        //Problem with multiple instances of game
+        //public void OnEnable()
+        //{
+        //}
+
+        public void Init()
         {
             Health = 20;
+            //Starting deck list of strings it is a deep copy
+            AllCards.AddRange(DeckCards);
         }
 
         public int ResourceCount
