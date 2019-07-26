@@ -120,9 +120,13 @@ namespace PL
 
         public void LoadPlayerActive(PlayerHolder player)
         {
-                PlayerHolder previousPlayer = UserPlayerCardHolder.Player;
+            PlayerHolder previousPlayer = UserPlayerCardHolder.Player;
+
+            if (previousPlayer != player)
+            {
                 LoadPlayerHolder(previousPlayer, EnemyPlayerCardHolder, PlayerStatVisuals[1]);
                 LoadPlayerHolder(player, UserPlayerCardHolder, PlayerStatVisuals[0]);
+            }
         }
 
         public void LoadPlayerHolder(PlayerHolder player, CardHolder cardHolder, PlayerStatsVisual visual)

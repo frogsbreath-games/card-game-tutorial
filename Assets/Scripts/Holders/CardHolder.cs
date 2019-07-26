@@ -38,6 +38,11 @@ namespace PL
                 Settings.SetParentForCard(resourceCard.ResourceCard.transform, ResourceGrid.value.transform);
             }
 
+            foreach (CardInstance card in player.PlayedCards)
+            {
+                SetCardOnBattleLine(card);
+            }
+
             player.Visual = statVisual;
             player.LoadPlayerStatsVisual();
         }
