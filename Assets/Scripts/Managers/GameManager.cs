@@ -1,5 +1,7 @@
 ﻿using PL.GameStates;
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace PL
 {
@@ -13,13 +15,48 @@ namespace PL
         {
             for (int i = 0; i < Players.Length; i++)
             {
-                if(Players[i] != currentPlayer)
+                if (Players[i] != currentPlayer)
                 {
                     return Players[i];
                 }
             }
 
             return null;
+        }
+
+        public Dictionary<CardInstance, BlockInstance> BlockInstances = new Dictionary<CardInstance, BlockInstance>();
+
+        public void AddBlockInstance(CardInstance attacker, CardInstance blocker)
+        {
+            BlockInstance blockInstance = GetBlockInstanceForAttacker(attacker);
+            if (blockInstance == null) {
+                blockInstance = new BlockInstance();
+                blockInstance.Attacker = attacker;
+                BlockInstances.Add(attacker, blockInstance);
+            }
+
+            if (!blockInstance.Blockers.Contains(blocker))
+            {
+                blockInstance.Blockers.Add(blocker);
+            }
+           
+        }
+
+        public BlockInstance GetBlockInstanceForAttacker(CardInstance attacker)
+        {
+            BlockInstance blockInstance = null;
+            BlockInstances.TryGetValue(attacker, out blockInstance);
+            return blockInstance;
+        }
+
+        public Dictionary<CardInstance, BlockInstance> GetBlockInstances()
+        {
+            return BlockInstances;
+        }
+
+        public void ClearBlockInstances()
+        {
+            BlockInstances.Clear();
         }
 
         public CardHolder UserPlayerCardHolder;
@@ -147,6 +184,7 @@ namespace PL
             CardVisual visual = cardObject.GetComponent<CardVisual>();
             visual.LoadCard(manager.GetCardInstance(cardId));
             CardInstance cardInstance = cardObject.GetComponent<CardInstance>();
+            cardInstance.Owner = player;
             cardInstance.currentLogic = CurrentPlayer.handLogic;
             Settings.SetParentForCard(cardObject.transform, player.CurrentCardHolder.HandGrid.value.transform);
             player.HandCards.Add(cardInstance);

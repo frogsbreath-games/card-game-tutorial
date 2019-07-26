@@ -5,9 +5,30 @@ namespace PL
 {
     public class CardInstance : MonoBehaviour, IClickable
     {
-        public PL.GameElements.GameElementLogic currentLogic;
+        public PlayerHolder Owner;
+        public GameElements.GameElementLogic currentLogic;
         public CardVisual visual;
         public bool IsExhausted;
+
+        public bool CanBeBlocked(CardInstance blocker)
+        {
+
+            bool result = Owner.AttackingCards.Contains(this);
+
+            if (result && visual.card.cardType.CanAttack) {
+                
+                result = true;
+
+                //Other blocker logic Flying set result false?
+                if (result)
+                {
+                    Settings.gameManager.AddBlockInstance(this, blocker);
+                }
+                return result;
+
+            }
+            return false;
+        }
 
         public void SetExhausted(bool exhausted)
         {
@@ -57,6 +78,11 @@ namespace PL
             }
 
             return result;
+        }
+
+        public void CardInstanceToDiscard()
+        {
+            Debug.Log("Card Dies");
         }
     }
 }

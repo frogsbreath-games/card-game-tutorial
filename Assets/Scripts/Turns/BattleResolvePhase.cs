@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace PL {
     [CreateAssetMenu(menuName = "Turns/Battle Resolve Phase")]
@@ -18,17 +19,49 @@ namespace PL {
                 return true;
             }
 
-            for (int i = 0; i < player.AttackingCards.Count; i++)
+            Dictionary<CardInstance,BlockInstance> blockInstanceDictionary = Settings.gameManager.GetBlockInstances();
+
+
+            foreach (CardInstance attackingInstance in player.AttackingCards)
             {
-                CardInstance instance = player.AttackingCards[i];
-                Card card = instance.visual.card;
+                Card card = attackingInstance.visual.card;
                 CardProperty attackProperty = card.GetProperty(AttackElement);
                 if (attackProperty == null) { Debug.Log("Attacking card has no attack property"); continue; }
 
-                enemy.TakeDamage(attackProperty.intValue);
-                player.DropCard(instance, false);
-                player.CurrentCardHolder.SetCardDown(instance);
-                instance.SetExhausted(true);
+                int attackValue = attackProperty.intValue;
+
+                BlockInstance blockInstance = Settings.gameManager.GetBlockInstanceForAttacker(attackingInstance);
+                if(blockInstance != null)
+                {
+                    foreach (CardInstance blockerCardInstance in blockInstance.Blockers)
+                    {
+                        CardProperty defenseProperty = blockerCardInstance.visual.card.GetProperty(DefenseElement);
+                        if(defenseProperty == null)
+                        {
+                            Debug.LogWarning("Block Property is Null");
+                        }
+                        attackValue -= defenseProperty.intValue;
+                        
+                        if(defenseProperty.intValue <= attackValue)
+                        {
+                            //blocker dies
+                            blockerCardInstance.CardInstanceToDiscard();
+                        }
+                    }
+
+                }
+
+                if (attackValue < 0)
+                {
+                    attackValue = 0;
+                    //Attacker dies
+                    attackingInstance.CardInstanceToDiscard();
+                }
+
+                enemy.TakeDamage(attackValue);
+                player.DropCard(attackingInstance, false);
+                player.CurrentCardHolder.SetCardDown(attackingInstance);
+                attackingInstance.SetExhausted(true);
             }
 
             player.AttackingCards.Clear();
@@ -44,6 +77,14 @@ namespace PL {
         public override void OnStartPhase()
         {
             
+        }
+
+
+        BlockInstance GetBlockInstanceForAttacker(CardInstance attacker, Dictionary<CardInstance, BlockInstance> blockInstanceDictionary)
+        {
+            BlockInstance blockInstance = null;
+            blockInstanceDictionary.TryGetValue(attacker, out blockInstance);
+            return blockInstance;
         }
     }
 }
