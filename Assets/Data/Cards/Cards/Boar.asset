@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boar
   m_EditorClassIdentifier: 
   cardType: {fileID: 11400000, guid: c9a889cc26871d74fa38e0771c24f28c, type: 2}
-  ResourceCost: 2
+  ResourceCost: 1
   cardProperties:
   - stringValue: Boar Card
     intValue: 0
@@ -32,11 +32,11 @@ MonoBehaviour:
     sprite: {fileID: 0}
     cardElement: {fileID: 11400000, guid: ab5746b5916d09f4fbf2e95125d670ef, type: 2}
   - stringValue: Resource
-    intValue: 2
+    intValue: 1
     sprite: {fileID: 0}
     cardElement: {fileID: 11400000, guid: 4d21b56787604d1459e6fe6dd4eebe37, type: 2}
   - stringValue: Attack
-    intValue: 2
+    intValue: 1
     sprite: {fileID: 0}
     cardElement: {fileID: 11400000, guid: 9062a93e4692f8b45b6cc486a84d2c44, type: 2}
   - stringValue: Defense

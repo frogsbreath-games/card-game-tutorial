@@ -19,7 +19,7 @@ namespace PL {
                 return true;
             }
 
-            Dictionary<CardInstance,BlockInstance> blockInstanceDictionary = Settings.gameManager.GetBlockInstances();
+            //Dictionary<CardInstance,BlockInstance> blockInstanceDictionary = Settings.gameManager.GetBlockInstances();
 
 
             foreach (CardInstance attackingInstance in player.AttackingCards)
@@ -64,6 +64,7 @@ namespace PL {
                 attackingInstance.SetExhausted(true);
             }
 
+            Settings.gameManager.ClearBlockInstances();
             player.AttackingCards.Clear();
 
             return true;

@@ -6,7 +6,7 @@ namespace PL
 {
     public class BlockInstance
     {
-        public List<CardInstance> Blockers;
+        public List<CardInstance> Blockers = new List<CardInstance>();
         public CardInstance Attacker;
     }
 }

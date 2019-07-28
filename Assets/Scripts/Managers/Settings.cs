@@ -65,5 +65,22 @@ namespace PL
             c.localEulerAngles = Vector3.zero;
             c.localScale = Vector3.one;
         }
+
+        public static void SetParentForCard(Transform c, Transform p, Vector3 offset, Vector3 euler)
+        {
+            c.SetParent(p);
+            c.localPosition = offset;
+            c.localEulerAngles = euler;
+            c.localScale = Vector3.one;
+        }
+
+        public static void SetParentForBlock(Transform c, Transform p, int count)
+        {
+
+            Vector3 blockPosition = Vector3.zero;
+            blockPosition.x += 150 * count;
+            blockPosition.y -= 150 * count;
+            SetParentForCard(c, p, blockPosition, Vector3.zero);
+        }
     }
 }

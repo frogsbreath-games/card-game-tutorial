@@ -38,7 +38,7 @@ namespace PL
                 Settings.SetParentForCard(resourceCard.ResourceCard.transform, ResourceGrid.value.transform);
             }
 
-            foreach (CardInstance card in player.PlayedCards)
+            foreach (CardInstance card in player.AttackingCards)
             {
                 SetCardOnBattleLine(card);
             }

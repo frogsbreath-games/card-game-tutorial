@@ -10,7 +10,7 @@ namespace PL
         public CardVisual visual;
         public bool IsExhausted;
 
-        public bool CanBeBlocked(CardInstance blocker)
+        public bool CanBeBlocked(CardInstance blocker, ref int count)
         {
 
             bool result = Owner.AttackingCards.Contains(this);
@@ -22,7 +22,8 @@ namespace PL
                 //Other blocker logic Flying set result false?
                 if (result)
                 {
-                    Settings.gameManager.AddBlockInstance(this, blocker);
+                    Debug.Log("Can Block");
+                    Settings.gameManager.AddBlockInstance(this, blocker, ref count);
                 }
                 return result;
 

@@ -10,8 +10,10 @@ namespace PL.GameStates
     public class MouseHoldWithCard : Action
     {
         public CardVariable currentCard;
-        public State playerControlState;
+        public State PlayerControlState;
+        public State PlayerBlockState;
         public SO.GameEvent onPlayerControlState;
+        public Phase BlockPhase;
 
         public override void Execute(float delta)
         {
@@ -19,24 +21,57 @@ namespace PL.GameStates
 
             if (!mouseIsDown)
             {
+                GameManager gameManager = Settings.gameManager;
+
                 List<RaycastResult> results = Settings.GetUIObjectsUnderMouse();
 
-                foreach (RaycastResult result in results)
+                //Variable needs the value otherwise the comparison
+                if (gameManager.Turns[gameManager.TurnIndex].currentPhase.value != BlockPhase)
                 {
-                    //Check for droppable areas
-                    Area a = result.gameObject.GetComponentInParent<Area>();
-                    if(a != null)
+                    foreach (RaycastResult result in results)
                     {
-                        a.OnDrop();
-                        break;
+                        //Check for droppable areas
+                        Area a = result.gameObject.GetComponentInParent<Area>();
+                        if (a != null)
+                        {
+                            a.OnDrop();
+                            break;
+                        }
+                    }
+
+                    currentCard.value.gameObject.SetActive(true);
+                    currentCard.value = null;
+
+                    Settings.gameManager.SetState(PlayerControlState);
+                    onPlayerControlState.Raise();
+                }
+                else
+                {
+                    foreach (RaycastResult result in results)
+                    {
+                        //Check for droppable areas
+                        CardInstance card = result.gameObject.GetComponentInParent<CardInstance>();
+
+                        if (card != null)
+                        {
+                            int count = 0;
+
+                            bool block = card.CanBeBlocked(currentCard.value, ref count);
+
+                            if (block)
+                            {
+                                Settings.SetParentForBlock(currentCard.value.transform, card.transform, count);
+                                Debug.Log("Block Card found");
+                            }
+
+                            currentCard.value.gameObject.SetActive(true);
+                            currentCard.value = null;
+                            onPlayerControlState.Raise();
+                            Settings.gameManager.SetState(PlayerBlockState);
+                            break;
+                        }
                     }
                 }
-
-                currentCard.value.gameObject.SetActive(true);
-                currentCard.value = null;
-
-                Settings.gameManager.SetState(playerControlState);
-                onPlayerControlState.Raise();
                 return;
             }
         }

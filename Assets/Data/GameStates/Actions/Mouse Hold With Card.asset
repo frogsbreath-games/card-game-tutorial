@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Mouse Hold With Card
   m_EditorClassIdentifier: 
   currentCard: {fileID: 11400000, guid: 7f0b5c26279972e47b343d86365ec780, type: 2}
-  playerControlState: {fileID: 11400000, guid: 183b17d58cb1a0748b4e32bf5c484bc2, type: 2}
+  PlayerControlState: {fileID: 11400000, guid: 183b17d58cb1a0748b4e32bf5c484bc2, type: 2}
+  PlayerBlockState: {fileID: 11400000, guid: 2faef7c6d5105b24798e508a78b6b625, type: 2}
   onPlayerControlState: {fileID: 11400000, guid: 088495b8031df204aa393bf02ab2198b,
     type: 2}
+  BlockPhase: {fileID: 11400000, guid: 02e64e82197c02b458f07f2b7b59f15a, type: 2}

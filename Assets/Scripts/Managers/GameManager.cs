@@ -26,9 +26,10 @@ namespace PL
 
         public Dictionary<CardInstance, BlockInstance> BlockInstances = new Dictionary<CardInstance, BlockInstance>();
 
-        public void AddBlockInstance(CardInstance attacker, CardInstance blocker)
+        public void AddBlockInstance(CardInstance attacker, CardInstance blocker, ref int count)
         {
-            BlockInstance blockInstance = GetBlockInstanceForAttacker(attacker);
+            BlockInstance blockInstance = null;
+            blockInstance = GetBlockInstanceForAttacker(attacker);
             if (blockInstance == null) {
                 blockInstance = new BlockInstance();
                 blockInstance.Attacker = attacker;
@@ -39,7 +40,8 @@ namespace PL
             {
                 blockInstance.Blockers.Add(blocker);
             }
-           
+
+            count = blockInstance.Blockers.Count;
         }
 
         public BlockInstance GetBlockInstanceForAttacker(CardInstance attacker)
@@ -125,8 +127,8 @@ namespace PL
             if (previousPlayer != player)
             {
                 LoadPlayerHolder(previousPlayer, EnemyPlayerCardHolder, PlayerStatVisuals[1]);
-                LoadPlayerHolder(player, UserPlayerCardHolder, PlayerStatVisuals[0]);
             }
+            LoadPlayerHolder(player, UserPlayerCardHolder, PlayerStatVisuals[0]);
         }
 
         public void LoadPlayerHolder(PlayerHolder player, CardHolder cardHolder, PlayerStatsVisual visual)
