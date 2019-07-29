@@ -17,6 +17,7 @@ namespace PL
         public List<string> DeckCards = new List<string>();
         [System.NonSerialized]
         public List<string> AllCards = new List<string>();
+        
 
         public bool IsHuman;
 
@@ -44,6 +45,9 @@ namespace PL
 
         [System.NonSerialized]
         public List<CardInstance> AttackingCards = new List<CardInstance>();
+
+       [System.NonSerialized]
+        public List<CardInstance> DiscardCards = new List<CardInstance>();
 
         //Problem with multiple instances of game
         //public void OnEnable()
@@ -89,6 +93,25 @@ namespace PL
             {
                 Settings.RegisterEvent(Username + " dropped card " + cardInstance.visual.card.name + " resouce cost " + cardInstance.visual.card.ResourceCost, PlayerColor);
             }
+        }
+
+        public void CardToDiscard(CardInstance instance)
+        {
+            //if (AttackingCards.Contains(instance)){
+            //    AttackingCards.Remove(instance);
+            //}
+
+            if (PlayedCards.Contains(instance))
+            {
+                PlayedCards.Remove(instance);
+            }
+
+            if (HandCards.Contains(instance))
+            {
+                HandCards.Remove(instance);
+            }
+
+            DiscardCards.Add(instance);
         }
 
         public void AddResourceCard(GameObject card)

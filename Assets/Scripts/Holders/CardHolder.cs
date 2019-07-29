@@ -10,6 +10,7 @@ namespace PL
         public SO.TransformVariable ResourceGrid;
         public SO.TransformVariable PlayedGrid;
         public SO.TransformVariable AttackingLine;
+        public SO.TransformVariable DiscardPile;
 
         [System.NonSerialized]
         public PlayerHolder Player;
@@ -30,12 +31,23 @@ namespace PL
 
             foreach (CardInstance card in player.PlayedCards)
             {
-                Settings.SetParentForCard(card.visual.gameObject.transform, PlayedGrid.value.transform);
+                if (!player.AttackingCards.Contains(card))
+                {
+                    Settings.SetParentForCard(card.visual.gameObject.transform, PlayedGrid.value.transform);
+                }
             }
 
             foreach (ResourceHolder resourceCard in player.ResourceHolderList)
             {
                 Settings.SetParentForCard(resourceCard.ResourceCard.transform, ResourceGrid.value.transform);
+            }
+
+            foreach (CardInstance card in player.DiscardCards)
+            {
+                if (card.visual != null)
+                {
+                    Settings.SetParentForCard(card.visual.gameObject.transform, DiscardPile.value.transform);
+                }
             }
 
             foreach (CardInstance card in player.AttackingCards)

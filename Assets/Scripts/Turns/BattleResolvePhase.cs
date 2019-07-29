@@ -25,27 +25,44 @@ namespace PL {
             foreach (CardInstance attackingInstance in player.AttackingCards)
             {
                 Card card = attackingInstance.visual.card;
-                CardProperty attackProperty = card.GetProperty(AttackElement);
-                if (attackProperty == null) { Debug.Log("Attacking card has no attack property"); continue; }
+                CardProperty attackerAttackProperty = card.GetProperty(AttackElement);
+                CardProperty AttackerDefenseProperty = card.GetProperty(DefenseElement);
+                if (attackerAttackProperty == null) { Debug.Log("Attacking card has no attack property"); continue; }
 
-                int attackValue = attackProperty.intValue;
+                int attackValue = attackerAttackProperty.intValue;
 
                 BlockInstance blockInstance = Settings.gameManager.GetBlockInstanceForAttacker(attackingInstance);
                 if(blockInstance != null)
                 {
+                    Debug.Log("Block Instance not null");
+
                     foreach (CardInstance blockerCardInstance in blockInstance.Blockers)
                     {
-                        CardProperty defenseProperty = blockerCardInstance.visual.card.GetProperty(DefenseElement);
-                        if(defenseProperty == null)
+                        CardProperty blockerDefenseProperty = blockerCardInstance.visual.card.GetProperty(DefenseElement);
+                        CardProperty blockerAttackProperty = blockerCardInstance.visual.card.GetProperty(AttackElement);
+
+                        if (blockerDefenseProperty == null)
                         {
                             Debug.LogWarning("Block Property is Null");
                         }
-                        attackValue -= defenseProperty.intValue;
-                        
-                        if(defenseProperty.intValue <= attackValue)
+                        attackValue -= blockerDefenseProperty.intValue;
+
+                        if(blockerDefenseProperty.intValue <= attackerAttackProperty.intValue)
                         {
                             //blocker dies
                             blockerCardInstance.CardInstanceToDiscard();
+                        }
+
+                        if(AttackerDefenseProperty.intValue <= blockerAttackProperty.intValue)
+                        {
+                            //attacker dies
+                            attackingInstance.CardInstanceToDiscard();
+                        }
+                        else
+                        {
+                            player.DropCard(attackingInstance, false);
+                            player.CurrentCardHolder.SetCardDown(attackingInstance);
+                            attackingInstance.SetExhausted(true);
                         }
                     }
 
@@ -54,14 +71,10 @@ namespace PL {
                 if (attackValue < 0)
                 {
                     attackValue = 0;
-                    //Attacker dies
-                    attackingInstance.CardInstanceToDiscard();
                 }
+               
 
                 enemy.TakeDamage(attackValue);
-                player.DropCard(attackingInstance, false);
-                player.CurrentCardHolder.SetCardDown(attackingInstance);
-                attackingInstance.SetExhausted(true);
             }
 
             Settings.gameManager.ClearBlockInstances();
@@ -81,11 +94,11 @@ namespace PL {
         }
 
 
-        BlockInstance GetBlockInstanceForAttacker(CardInstance attacker, Dictionary<CardInstance, BlockInstance> blockInstanceDictionary)
-        {
-            BlockInstance blockInstance = null;
-            blockInstanceDictionary.TryGetValue(attacker, out blockInstance);
-            return blockInstance;
-        }
+        //BlockInstance GetBlockInstanceForAttacker(CardInstance attacker, Dictionary<CardInstance, BlockInstance> blockInstanceDictionary)
+        //{
+        //    BlockInstance blockInstance = null;
+        //    blockInstanceDictionary.TryGetValue(attacker, out blockInstance);
+        //    return blockInstance;
+        //}
     }
 }

@@ -16,3 +16,4 @@ MonoBehaviour:
   ResourceGrid: {fileID: 11400000, guid: 6f533570d352ff84988bb2bb24b0206f, type: 2}
   PlayedGrid: {fileID: 11400000, guid: 4b7cd9cded4395e48ba96a455e80f329, type: 2}
   AttackingLine: {fileID: 11400000, guid: e004868083664c94d8043c9549ba8770, type: 2}
+  DiscardPile: {fileID: 11400000, guid: c8a6acd140d87e641bd631e9aaf966d1, type: 2}

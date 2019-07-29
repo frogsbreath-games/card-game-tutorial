@@ -195,5 +195,22 @@ namespace PL
             Settings.SetParentForCard(cardObject.transform, player.CurrentCardHolder.HandGrid.value.transform);
             player.HandCards.Add(cardInstance);
         }
+
+
+        public void PutCardInDiscard(CardInstance instance)
+        {
+            PlayerHolder owner = instance.Owner;
+            owner.CardToDiscard(instance);
+
+            Settings.SetParentForCard(instance.transform, owner.CurrentCardHolder.DiscardPile.value);
+            //instance.transform.parent = owner.CurrentCardHolder.DiscardPile.value;
+            Vector3 position = Vector3.zero;
+
+            position.x = owner.DiscardCards.Count * 10;
+            position.y = owner.DiscardCards.Count * -10;
+            instance.transform.localPosition = position;
+            instance.transform.localRotation = Quaternion.identity;
+            instance.transform.localScale = Vector3.one;
+        }
     }
 }

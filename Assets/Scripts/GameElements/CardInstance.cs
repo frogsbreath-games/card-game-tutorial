@@ -84,6 +84,7 @@ namespace PL
         public void CardInstanceToDiscard()
         {
             Debug.Log("Card Dies");
+            Settings.gameManager.PutCardInDiscard(this);
         }
     }
 }
