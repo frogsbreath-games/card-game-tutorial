@@ -6,6 +6,11 @@ namespace PL
     [CreateAssetMenu(menuName = "Card")]
     public class Card : ScriptableObject
     {
+        [System.NonSerialized]
+        public int InstanceId;
+        [System.NonSerialized]
+        public CardVisual Visual;
+
         public CardType cardType;
         public int ResourceCost;
         public CardProperty[] cardProperties;

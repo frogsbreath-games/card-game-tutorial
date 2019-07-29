@@ -21,6 +21,7 @@ namespace PL
 
             card = c;
 
+            card.Visual = this;
 
             CloseAll();
 
