@@ -12,7 +12,7 @@ namespace PL
 
         int cardInstanceId;
 
-        List<MultiplayerHolder> MultiplayerHolders;
+        List<MultiplayerHolder> MultiplayerHolders = new List<MultiplayerHolder>();
 
         public MultiplayerHolder GetMultiplayerHolder(int photonId)
         {
