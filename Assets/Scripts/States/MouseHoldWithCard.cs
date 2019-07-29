@@ -63,14 +63,19 @@ namespace PL.GameStates
                                 Settings.SetParentForBlock(currentCard.value.transform, card.transform, count);
                                 Debug.Log("Block Card found");
                             }
-
-                            currentCard.value.gameObject.SetActive(true);
-                            currentCard.value = null;
-                            onPlayerControlState.Raise();
+                           
                             Settings.gameManager.SetState(PlayerBlockState);
                             break;
                         }
+
                     }
+
+                    if (currentCard.value != null)
+                    {
+                        currentCard.value.gameObject.SetActive(true);
+                        currentCard.value = null;
+                    }
+                    onPlayerControlState.Raise();
                 }
                 return;
             }

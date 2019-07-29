@@ -24,6 +24,7 @@ namespace PL {
 
             foreach (CardInstance attackingInstance in player.AttackingCards)
             {
+                bool AttackerDied = false;
                 Card card = attackingInstance.visual.card;
                 CardProperty attackerAttackProperty = card.GetProperty(AttackElement);
                 CardProperty AttackerDefenseProperty = card.GetProperty(DefenseElement);
@@ -55,15 +56,11 @@ namespace PL {
 
                         if(AttackerDefenseProperty.intValue <= blockerAttackProperty.intValue)
                         {
+                            AttackerDied = true;
                             //attacker dies
                             attackingInstance.CardInstanceToDiscard();
                         }
-                        else
-                        {
-                            player.DropCard(attackingInstance, false);
-                            player.CurrentCardHolder.SetCardDown(attackingInstance);
-                            attackingInstance.SetExhausted(true);
-                        }
+                       
                     }
 
                 }
@@ -72,7 +69,13 @@ namespace PL {
                 {
                     attackValue = 0;
                 }
-               
+
+                if(!AttackerDied)
+                {
+                    player.DropCard(attackingInstance, false);
+                    player.CurrentCardHolder.SetCardDown(attackingInstance);
+                    attackingInstance.SetExhausted(true);
+                }
 
                 enemy.TakeDamage(attackValue);
             }
