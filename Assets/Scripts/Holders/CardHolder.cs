@@ -18,6 +18,7 @@ namespace PL
         public void LoadPlayer(PlayerHolder player, PlayerStatsVisual statVisual)
         {
             if(player == null) { return; }
+
             Player = player;
             Player.CurrentCardHolder = this;
 
