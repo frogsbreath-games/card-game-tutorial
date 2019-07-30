@@ -10,6 +10,12 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+# Ignore Photon Folder
+Photon Unity Networking/
+PhotonChatApi/
+_TerrainAutoUpgrade/
+Plugins/
+
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
