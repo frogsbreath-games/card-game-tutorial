@@ -10,7 +10,7 @@ namespace PL
     {
         //If not master then client
         public bool IsMaster;
-        public static NetworkManager singleton;
+        public static NetworkManager Singleton;
 
         public StringVariable LoggerTextVariable;
 
@@ -45,10 +45,10 @@ namespace PL
 
         private void Awake()
         {
-            if (singleton == null)
+            if (Singleton == null)
             {
                 resourcesManager = Resources.Load("ResourcesManager") as ResourcesManager;
-                singleton = this;
+                Singleton = this;
                 DontDestroyOnLoad(this.gameObject);
             }
             else
@@ -181,9 +181,20 @@ namespace PL
                     LoggerTextVariable.value = "Ready for match";
                     LoggerUpdated.Raise();
                     PhotonNetwork.room.IsOpen = false;
-                    //SessionManager.Singleton.LoadGameLevel();
+
+                    PhotonNetwork.Instantiate("MultiplayerManager", Vector3.zero, Quaternion.identity, 0);
                 }
             }
+        }
+
+        public void LoadGameScene()
+        {
+            SessionManager.Singleton.LoadGameLevel(OnGameSceneLoaded);
+        }
+
+        void OnGameSceneLoaded()
+        {
+            //Responsible for getting the data from network players and assigning them on player holders
         }
 
         public override void OnDisconnectedFromPhoton()

@@ -23,17 +23,18 @@ namespace PL
             }
         }
 
-        public void LoadGameLevel()
+        public void LoadGameLevel(OnSceneLoaded callbackMethod)
         {
-            StartCoroutine("Scene1");
+            onSceneLoaded = callbackMethod;
+            StartCoroutine(LoadLevel("Scene1"));
         }
 
         public void LoadMenu()
         {
-            StartCoroutine("Menu");
+            StartCoroutine(LoadLevel("Menu"));
         }
 
-        IEnumerable LoadLevel(string level)
+        IEnumerator LoadLevel(string level)
         {
             yield return SceneManager.LoadSceneAsync(level, LoadSceneMode.Single);
             if(onSceneLoaded != null)
@@ -42,5 +43,7 @@ namespace PL
                 onSceneLoaded = null;
             }
         }
+
+        
     }
 }

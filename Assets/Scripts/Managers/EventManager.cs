@@ -9,12 +9,12 @@ namespace PL
         #region Calls
         public void CardIsDropped(int instanceId, int ownerId)
         {
-            Card card = NetworkManager.singleton.GetCard(instanceId, ownerId);
+            Card card = NetworkManager.Singleton.GetCard(instanceId, ownerId);
         }
 
         public void CardIsDrawnFromDeck(int instanceId, int ownerId)
         {
-            Card card = NetworkManager.singleton.GetCard(instanceId, ownerId);
+            Card card = NetworkManager.Singleton.GetCard(instanceId, ownerId);
         }
 
         #endregion
