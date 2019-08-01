@@ -32,7 +32,7 @@ namespace PL
 
             foreach (CardInstance card in player.PlayedCards)
             {
-                if (!player.AttackingCards.Contains(card))
+                if (!player.AttackingCards.Contains(card) && card.visual.gameObject.transform.parent != PlayedGrid.value.transform)
                 {
                     Settings.SetParentForCard(card.visual.gameObject.transform, PlayedGrid.value.transform);
                 }
