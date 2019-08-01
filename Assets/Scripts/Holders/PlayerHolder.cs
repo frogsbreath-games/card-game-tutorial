@@ -17,7 +17,9 @@ namespace PL
         public List<string> DeckCards = new List<string>();
         [System.NonSerialized]
         public List<string> AllCards = new List<string>();
-        
+
+        [System.NonSerialized]
+        public int PhotonId = -1;
 
         public bool IsHuman;
 

@@ -4578,6 +4578,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentPlayer: {fileID: 11400000, guid: 2b57864446ca5154c8c86b82b1fd17ca, type: 2}
+  LocalPlayer: {fileID: 11400000, guid: 2b57864446ca5154c8c86b82b1fd17ca, type: 2}
+  ClientPlayer: {fileID: 11400000, guid: 47563855fc93ab844a1dbf2f25d1d3b6, type: 2}
   UserPlayerCardHolder: {fileID: 11400000, guid: 68cd0a5a4856b984eb105925f05eca5a,
     type: 2}
   EnemyPlayerCardHolder: {fileID: 11400000, guid: 46f16925f8ae902498131000d8b3755e,

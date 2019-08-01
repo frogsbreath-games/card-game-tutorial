@@ -11,6 +11,25 @@ namespace PL
         public PlayerHolder[] Players;
         public PlayerHolder CurrentPlayer;
 
+        public PlayerHolder LocalPlayer;
+        public PlayerHolder ClientPlayer;
+
+        public CardHolder UserPlayerCardHolder;
+        public CardHolder EnemyPlayerCardHolder;
+        public State currentState;
+        public GameObject cardPrefab;
+        public SO.GameEvent onTurnChange;
+        public SO.GameEvent onPhaseChange;
+        public SO.StringVariable TurnName;
+
+        bool GameIsInit;
+
+        public int TurnIndex;
+        public Turn[] Turns;
+        public PlayerStatsVisual[] PlayerStatVisuals;
+
+        public static GameManager Singleton;
+
         public PlayerHolder GetOpponentOf(PlayerHolder currentPlayer)
         {
             for (int i = 0; i < Players.Length; i++)
@@ -60,42 +79,52 @@ namespace PL
         {
             BlockInstances.Clear();
         }
-
-        public CardHolder UserPlayerCardHolder;
-        public CardHolder EnemyPlayerCardHolder;
-        public State currentState;
-        public GameObject cardPrefab;
-        public SO.GameEvent onTurnChange;
-        public SO.GameEvent onPhaseChange;
-        public SO.StringVariable TurnName;
-
-        public int TurnIndex;
-        public Turn[] Turns;
-        public PlayerStatsVisual[] PlayerStatVisuals;
-
-        public static GameManager Singleton;
-
+       
         private void Awake()
         {
+            //Two ways to access game manager need to refactor
             Singleton = this;
+            Settings.gameManager = this;
 
-            Players = new PlayerHolder[Turns.Length];
-            for (int i = 0; i < Players.Length; i++)
-            {
-                Players[i] = Turns[i].Player;
-            }
-
-            CurrentPlayer = Turns[0].Player;
+           
         }
 
         private void Start()
         {
-            Settings.gameManager = this;
+        
+
+           
+        }
+
+        public void GameInit(int PlayerPhotonId)
+        {
+            Players = new PlayerHolder[Turns.Length];
+
+            Turn[] turns = new Turn[2];
+            for (int i = 0; i < Players.Length; i++)
+            {
+                Players[i] = Turns[i].Player;
+
+                if(Players[i].PhotonId == PlayerPhotonId)
+                {
+                    //CurrentPlayer = Players[i];
+                    turns[i] = Turns[0];
+                } else
+                {
+                    turns[i] = Turns[1];
+                }
+            }
+
+            Turns = turns;
+            //CurrentPlayer = Turns[0].Player;
 
             SetupPlayers();
+
             Turns[0].OnTurnStart();
             TurnName.value = Turns[TurnIndex].Player.Username;
             onTurnChange.Raise();
+
+            GameIsInit = true;
         }
 
         void SetupPlayers()
@@ -138,6 +167,11 @@ namespace PL
 
         private void Update()
         {
+            if (!GameIsInit)
+            {
+                return;
+            }
+
             bool isComplete = Turns[TurnIndex].Execute();
 
             if (isComplete)

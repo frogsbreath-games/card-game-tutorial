@@ -195,6 +195,7 @@ namespace PL
         void OnGameSceneLoaded()
         {
             //Responsible for getting the data from network players and assigning them on player holders
+            MultiplayerManager.Singleton.CheckPlayerCount = true;
         }
 
         public override void OnDisconnectedFromPhoton()
