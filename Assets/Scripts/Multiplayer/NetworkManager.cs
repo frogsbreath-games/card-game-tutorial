@@ -9,7 +9,7 @@ namespace PL
     public class NetworkManager : Photon.PunBehaviour
     {
         //If not master then client
-        public bool IsMaster;
+        public static bool IsMaster;
         public static NetworkManager Singleton;
 
         public StringVariable LoggerTextVariable;

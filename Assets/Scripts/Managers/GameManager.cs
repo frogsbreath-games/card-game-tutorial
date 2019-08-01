@@ -7,10 +7,13 @@ namespace PL
 {
     public class GameManager : MonoBehaviour
     {
+        public bool IsMultiplayer;
+
         [System.NonSerialized]
         public PlayerHolder[] Players;
         public PlayerHolder CurrentPlayer;
 
+        //This are unused 
         public PlayerHolder LocalPlayer;
         public PlayerHolder ClientPlayer;
 
@@ -174,26 +177,70 @@ namespace PL
 
             bool isComplete = Turns[TurnIndex].Execute();
 
-            if (isComplete)
+            if (!IsMultiplayer)
             {
-                TurnIndex++;
-
-                if (TurnIndex > Turns.Length -1)
+                if (isComplete)
                 {
-                    TurnIndex = 0;
-                }
+                    TurnIndex++;
 
-                //Player change here
-                CurrentPlayer = Turns[TurnIndex].Player;
-                Turns[TurnIndex].OnTurnStart();
-                TurnName.value = Turns[TurnIndex].Player.Username;
-                onTurnChange.Raise();
+                    if (TurnIndex > Turns.Length - 1)
+                    {
+                        TurnIndex = 0;
+                    }
+
+                    //Player change here
+                    CurrentPlayer = Turns[TurnIndex].Player;
+                    Turns[TurnIndex].OnTurnStart();
+                    TurnName.value = Turns[TurnIndex].Player.Username;
+                    onTurnChange.Raise();
+                }
+            }
+            else if(isComplete)
+            {
+                MultiplayerManager.Singleton.PlayerEndsTurn(CurrentPlayer.PhotonId);
             }
 
             if (currentState != null)
             {
                 currentState.Tick(Time.deltaTime);
             }
+        }
+
+        int GetTurnIndexForPlayer(int photonId)
+        {
+            for (int  i = 0;  i < Turns.Length;  i++)
+            {
+                if(Turns[i].Player.PhotonId == photonId)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public int GetPhotonIdForNextPlayer()
+        {
+            int r = TurnIndex;
+
+            r++;
+
+            if(r >= Turns.Length)
+            {
+                r = 0;
+            }
+
+            return Turns[r].Player.PhotonId;
+        }
+
+        public void ChangeCurrentTurn(int photonId)
+        {
+            TurnIndex = GetTurnIndexForPlayer(photonId);
+
+            CurrentPlayer = Turns[TurnIndex].Player;
+            Turns[TurnIndex].OnTurnStart();
+            TurnName.value = Turns[TurnIndex].Player.Username;
+            onTurnChange.Raise();
         }
 
         public void SetState(State state)
@@ -203,9 +250,12 @@ namespace PL
 
         public void EndPhase()
         {
-            Turns[TurnIndex].EndCurrentPhase();
+            if (CurrentPlayer.IsHuman)
+            {
+                Turns[TurnIndex].EndCurrentPhase();
 
-            Settings.RegisterEvent("Phase: " + Turns[TurnIndex].name + " ended.", CurrentPlayer.PlayerColor);
+                Settings.RegisterEvent("Phase: " + Turns[TurnIndex].name + " ended.", CurrentPlayer.PlayerColor);
+            }
         }
 
         public void DrawCardFromDeck(PlayerHolder player)

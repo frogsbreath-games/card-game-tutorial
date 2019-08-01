@@ -6,6 +6,7 @@ namespace PL
 {
     public class MultiplayerManager : Photon.MonoBehaviour
     {
+
         #region variables
         List<NetworkPrint> Players = new List<NetworkPrint>();
         public static MultiplayerManager Singleton;
@@ -13,6 +14,11 @@ namespace PL
 
         public PlayerHolder LocalPlayerHolder;
         public PlayerHolder ClientPlayerHolder;
+
+        GameManager gameManager
+        {
+            get { return GameManager.Singleton; }
+        }
 
         public bool CheckPlayerCount;
         bool GameStarted;
@@ -59,7 +65,7 @@ namespace PL
         }
         #endregion
 
-        #region My Calls
+        #region Starting Match
         public void StartMatch()
         {
             GameManager manager = GameManager.Singleton;
@@ -80,9 +86,12 @@ namespace PL
                 }
             }
 
-            //First player to join is the first to play
-            manager.GameInit(1);
+            if (NetworkManager.IsMaster)
+            {
+                photonView.RPC("RPC_InitGame", PhotonTargets.All, 1);
+            }
         }
+
         public void AddPlayer(NetworkPrint networkPrint)
         {
             if (networkPrint.IsLocal)
@@ -91,6 +100,14 @@ namespace PL
             }
             Players.Add(networkPrint);
             networkPrint.transform.parent = MultiplayerReferences;
+        }
+
+        [PunRPC]
+        public void RPC_InitGame(int startingPlayerId)
+        {
+            gameManager.IsMultiplayer = true;
+            gameManager.GameInit(startingPlayerId);
+            //First player to join is the first to play
         }
 
         NetworkPrint GetPlayer(int photonId)
@@ -103,6 +120,33 @@ namespace PL
                 }
             }
             return null;
+        }
+        #endregion
+
+        #region End Turn
+        public void PlayerEndsTurn(int playerPhotonId)
+        {
+            photonView.RPC("RPC_PlayerEndsTurn", PhotonTargets.MasterClient, playerPhotonId);
+        }
+
+        [PunRPC]
+        public void RPC_PlayerEndsTurn(int playerPhotonId)
+        {
+            if (playerPhotonId == gameManager.CurrentPlayer.PhotonId)
+            {
+                //gameManager.ChangeCurrentTurn(playerPhotonId);
+                if (NetworkManager.IsMaster)
+                {
+                    int photonId = gameManager.GetPhotonIdForNextPlayer();
+                    photonView.RPC("RPC_PlayerStartsTurn", PhotonTargets.All, photonId);
+                }
+            }
+        }
+
+        [PunRPC]
+        public void RPC_PlayerStartsTurn(int playerPhotonId)
+        {
+            gameManager.ChangeCurrentTurn(playerPhotonId);
         }
         #endregion
     }
