@@ -51,6 +51,9 @@ namespace PL
        [System.NonSerialized]
         public List<CardInstance> DiscardCards = new List<CardInstance>();
 
+        [System.NonSerialized]
+        public List<Card> AllCardInstances = new List<Card>();
+
         //Problem with multiple instances of game
         //public void OnEnable()
         //{
@@ -60,6 +63,7 @@ namespace PL
         {
             Health = 20;
             //Starting deck list of strings it is a deep copy
+            //Only matters local
             AllCards.AddRange(DeckCards);
         }
 

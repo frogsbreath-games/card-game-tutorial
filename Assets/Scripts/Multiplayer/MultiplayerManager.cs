@@ -8,9 +8,24 @@ namespace PL
     {
 
         #region variables
+        #region Player Management
         List<NetworkPrint> Players = new List<NetworkPrint>();
-        public static MultiplayerManager Singleton;
         NetworkPrint LocalPlayer;
+
+        NetworkPrint GetPlayer(int photonId)
+        {
+            foreach (NetworkPrint player in Players)
+            {
+                if (player.PhotonId == photonId)
+                {
+                    return player;
+                }
+            }
+            return null;
+        }
+        #endregion
+
+        public static MultiplayerManager Singleton;
 
         public PlayerHolder LocalPlayerHolder;
         public PlayerHolder ClientPlayerHolder;
@@ -68,7 +83,7 @@ namespace PL
         #region Starting Match
         public void StartMatch()
         {
-            GameManager manager = GameManager.Singleton;
+            ResourcesManager resourcesManager = Resources.Load("ResourcesManager") as ResourcesManager;
 
             foreach(NetworkPrint player in Players)
             {
@@ -77,12 +92,22 @@ namespace PL
                     LocalPlayerHolder.PhotonId = player.PhotonId;
                     LocalPlayerHolder.AllCards.Clear();
                     LocalPlayerHolder.AllCards.AddRange(player.GetStartingCardIds());
+                    foreach (string id in player.GetStartingCardIds())
+                    {
+                        Card card = resourcesManager.GetCardInstance(id);
+                        LocalPlayerHolder.AllCardInstances.Add(card);
+                    }
                 }
                 else
                 {
                     ClientPlayerHolder.PhotonId = player.PhotonId;
                     ClientPlayerHolder.AllCards.Clear();
                     ClientPlayerHolder.AllCards.AddRange(player.GetStartingCardIds());
+                    foreach (string id in player.GetStartingCardIds())
+                    {
+                        Card card = resourcesManager.GetCardInstance(id);
+                        ClientPlayerHolder.AllCardInstances.Add(card);
+                    }
                 }
             }
 
@@ -108,18 +133,6 @@ namespace PL
             gameManager.IsMultiplayer = true;
             gameManager.GameInit(startingPlayerId);
             //First player to join is the first to play
-        }
-
-        NetworkPrint GetPlayer(int photonId)
-        {
-            foreach (NetworkPrint player in Players)
-            {
-                if(player.PhotonId == photonId)
-                {
-                    return player;
-                }
-            }
-            return null;
         }
         #endregion
 
@@ -147,6 +160,33 @@ namespace PL
         public void RPC_PlayerStartsTurn(int playerPhotonId)
         {
             gameManager.ChangeCurrentTurn(playerPhotonId);
+        }
+        #endregion
+
+        #region Card Check
+        public void PlayerAttemptsToPlayCard(int cardInstance, int photonId)
+        {
+            photonView.RPC("RPC_PlayerAttemptsToPlayCard", PhotonTargets.MasterClient, cardInstance, photonId);
+        }
+
+        [PunRPC]
+        public void RPC_PlayerAttemptsToPlayCard(int cardInstance, int photonId)
+        {
+            if (!NetworkManager.IsMaster)
+            {
+                return;
+            }
+
+        }
+
+
+        bool PlayerOwnsCard(int cardInstance, int photonId)
+        {
+            bool HasCard = false;
+
+            NetworkPrint player = GetPlayer(photonId);
+
+            return HasCard;
         }
         #endregion
     }
