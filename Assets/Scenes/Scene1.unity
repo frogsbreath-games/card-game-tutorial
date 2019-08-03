@@ -4577,6 +4577,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b22b2f5f510b44fb99a9967de6378a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsMultiplayer: 0
+  ResourcesManager: {fileID: 11400000, guid: 8d11bd620d439064f9dfa284e9da8ca3, type: 2}
   CurrentPlayer: {fileID: 11400000, guid: 2b57864446ca5154c8c86b82b1fd17ca, type: 2}
   LocalPlayer: {fileID: 11400000, guid: 2b57864446ca5154c8c86b82b1fd17ca, type: 2}
   ClientPlayer: {fileID: 11400000, guid: 47563855fc93ab844a1dbf2f25d1d3b6, type: 2}

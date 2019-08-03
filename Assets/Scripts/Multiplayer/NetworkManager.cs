@@ -59,6 +59,7 @@ namespace PL
 
         private void Start()
         {
+            resourcesManager.Init();
             PhotonNetwork.autoCleanUpPlayerObjects = false;
             PhotonNetwork.autoJoinLobby = false;
             PhotonNetwork.automaticallySyncScene = false;
@@ -114,15 +115,15 @@ namespace PL
             }
         }
 
-        void CreateCardClient_Call(string cardId, int instanceId, int photonId)
-        {
-            Card card = CreateCardClient(cardId, instanceId);
-            if(card != null)
-            {
-                MultiplayerHolder holder = GetMultiplayerHolder(photonId);
-                holder.RegisterCard(card);
-            }
-        }
+        //void CreateCardClient_Call(string cardId, int instanceId, int photonId)
+        //{
+        //    Card card = CreateCardClient(cardId, instanceId);
+        //    if(card != null)
+        //    {
+        //        MultiplayerHolder holder = GetMultiplayerHolder(photonId);
+        //        holder.RegisterCard(card);
+        //    }
+        //}
 
         Card CreateCardMaster(string cardId)
         {
@@ -132,12 +133,12 @@ namespace PL
             return card;
         }
 
-        Card CreateCardClient(string cardId, int instanceId)
-        {
-            Card card = resourcesManager.GetCardInstance(cardId);
-            card.InstanceId = instanceId;
-            return card; 
-        }
+        //Card CreateCardClient(string cardId, int instanceId)
+        //{
+        //    Card card = resourcesManager.GetCardInstance(cardId);
+        //    card.InstanceId = instanceId;
+        //    return card; 
+        //}
 
         #endregion
         #region Photon Callbacks

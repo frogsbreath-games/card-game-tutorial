@@ -38,17 +38,18 @@ namespace PL
             }
             else if (card.cardType == ResourceType)
             {
-                if (canPlay)
-                {
-                    Settings.SetParentForCard(CardVariable.value.transform, ResourceGrid.value.transform);
-                    Settings.gameManager.CurrentPlayer.AddResourceCard(CardVariable.value.gameObject);
-                    CardVariable.value.currentLogic = playedCardLogic;
-                }
-                else
-                {
-                    Settings.RegisterEvent(Settings.gameManager.CurrentPlayer.Username + " can only play one resource card per turn.", Settings.gameManager.CurrentPlayer.PlayerColor);
-                }
-                CardVariable.value.gameObject.SetActive(true);
+                MultiplayerManager.Singleton.PlayerAttemptsToPlayCard(card.InstanceId, GameManager.Singleton.CurrentPlayer.PhotonId, MultiplayerManager.CardOperation.dropResourcesCard);
+                //if (canPlay)
+                //{
+                //    //Settings.SetParentForCard(CardVariable.value.transform, ResourceGrid.value.transform);
+                //    //Settings.gameManager.CurrentPlayer.AddResourceCard(CardVariable.value.gameObject);
+                //    //CardVariable.value.currentLogic = playedCardLogic;
+                //}
+                //else
+                //{
+                //    Settings.RegisterEvent(Settings.gameManager.CurrentPlayer.Username + " can only play one resource card per turn.", Settings.gameManager.CurrentPlayer.PlayerColor);
+                //}
+                //CardVariable.value.gameObject.SetActive(true);
             } 
 
         }

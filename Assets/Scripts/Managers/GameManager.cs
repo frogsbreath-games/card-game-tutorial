@@ -9,6 +9,8 @@ namespace PL
     {
         public bool IsMultiplayer;
 
+        public ResourcesManager ResourcesManager;
+
         [System.NonSerialized]
         public PlayerHolder[] Players;
         public PlayerHolder CurrentPlayer;
@@ -260,24 +262,27 @@ namespace PL
 
         public void DrawCardFromDeck(PlayerHolder player)
         {
-            ResourcesManager manager = Settings.GetResourcesManager();
+            MultiplayerManager.Singleton.PlayerDrawsCardFromDeck(player);
+            //RPC 
 
-            if (player.AllCards.Count == 0)
-            {
-                Settings.RegisterEvent($"{player.Username} has run out of cards", player.PlayerColor);
-                return;
-            }
+            ////ResourcesManager manager = Settings.GetResourcesManager();
 
-            string cardId = player.AllCards[0];
-            player.AllCards.RemoveAt(0);
-            GameObject cardObject = Instantiate(cardPrefab) as GameObject;
-            CardVisual visual = cardObject.GetComponent<CardVisual>();
-            visual.LoadCard(manager.GetCardInstance(cardId));
-            CardInstance cardInstance = cardObject.GetComponent<CardInstance>();
-            cardInstance.Owner = player;
-            cardInstance.currentLogic = CurrentPlayer.handLogic;
-            Settings.SetParentForCard(cardObject.transform, player.CurrentCardHolder.HandGrid.value.transform);
-            player.HandCards.Add(cardInstance);
+            //if (player.AllCards.Count == 0)
+            //{
+            //    Settings.RegisterEvent($"{player.Username} has run out of cards", player.PlayerColor);
+            //    return;
+            //}
+
+            //string cardId = player.AllCards[0];
+            //player.AllCards.RemoveAt(0);
+            //GameObject cardObject = Instantiate(cardPrefab) as GameObject;
+            //CardVisual visual = cardObject.GetComponent<CardVisual>();
+            ////visual.LoadCard(manager.GetCardInstance(cardId));
+            //CardInstance cardInstance = cardObject.GetComponent<CardInstance>();
+            //cardInstance.Owner = player;
+            //cardInstance.currentLogic = CurrentPlayer.handLogic;
+            //Settings.SetParentForCard(cardObject.transform, player.CurrentCardHolder.HandGrid.value.transform);
+            //player.HandCards.Add(cardInstance);
         }
 
 

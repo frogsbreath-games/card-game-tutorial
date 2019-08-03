@@ -8,8 +8,12 @@ namespace PL
     {
         [System.NonSerialized]
         public int InstanceId;
+
         [System.NonSerialized]
         public CardVisual Visual;
+
+        [System.NonSerialized]
+        public CardInstance GameInstance;
 
         public CardType cardType;
         public int ResourceCost;

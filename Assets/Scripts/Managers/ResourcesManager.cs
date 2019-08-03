@@ -9,10 +9,15 @@ namespace PL
     {
         public CardElement typeElement;
         public Card[] allCards;
+
+        [System.NonSerialized]
         Dictionary<string, Card> cardDictionary = new Dictionary<string, Card>();
+
+        int CardIndex;
 
         public void Init()
         {
+            CardIndex = 0;
             cardDictionary.Clear();
             for (int i = 0; i < allCards.Length; i++)
             {
@@ -29,6 +34,8 @@ namespace PL
 
             Card cardInstance = Instantiate(card);
             cardInstance.name = card.name;
+            cardInstance.InstanceId = CardIndex;
+            CardIndex++;
             return cardInstance;
         }
 
