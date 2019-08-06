@@ -228,7 +228,7 @@ namespace PL
         #region CardOperations
         public enum CardOperation
         {
-            dropResourcesCard,pickCardFromDeck
+            dropResourcesCard,pickCardFromDeck,dropCreatureCard
         }
 
         [PunRPC]
@@ -236,20 +236,18 @@ namespace PL
         {
             NetworkPrint player = GetPlayer(photonId);
             Card card = player.GetCard(instanceId);
+            //check if active player can play card
+            bool canPlay = player.PlayerHolder.CanPlayCard(card);
 
             switch (operation)
             {
                 case CardOperation.dropResourcesCard:
                     Settings.SetParentForCard(card.GameInstance.transform, player.PlayerHolder.CurrentCardHolder.ResourceGrid.value);
-                    player.PlayerHolder.AddResourceCard(card.Visual.gameObject);
+                    player.PlayerHolder.AddResourceCard(card.GameInstance.gameObject);
                     card.GameInstance.currentLogic = DataHolder.PlayedCardLogic;
                     card.GameInstance.gameObject.SetActive(true);
                     break;
                 case CardOperation.pickCardFromDeck:
-
-                    //player.AllCards.RemoveAt(0);
-                    //remove card from player deck
-
                     GameObject cardObject = Instantiate(DataHolder.CardPrefab) as GameObject;
                     CardVisual visual = cardObject.GetComponent<CardVisual>();
                     visual.LoadCard(card);
@@ -259,13 +257,81 @@ namespace PL
                     //need player holder access on the network print
                     Settings.SetParentForCard(cardObject.transform, player.PlayerHolder.CurrentCardHolder.HandGrid.value.transform);
                     player.PlayerHolder.HandCards.Add(card.GameInstance);
+                    player.DeckCards.RemoveAt(0);
+                    break;
+                case CardOperation.dropCreatureCard:
 
+                    if (canPlay)
+                    {
+                        Settings.PlayCreatureCard(card.GameInstance.transform, player.PlayerHolder.CurrentCardHolder.PlayedGrid.value.transform, card.GameInstance);
+                        card.GameInstance.currentLogic = DataHolder.PlayedCardLogic;
+                    }
+                    else
+                    {
+                        Settings.RegisterEvent(player.PlayerHolder.Username + " not enough resource to play card.", player.PlayerHolder.PlayerColor);
+                    }
+
+                    card.GameInstance.gameObject.SetActive(true);
                     break;
                 default:
                     break;
             }
 
         }
+
+
+        #endregion
+
+        #region MultipleCard Operations
+        #region Reset Creatures
+        public void PlayerWantsToResetFlatFootedCards(int photonId)
+        {
+            photonView.RPC("RPC_ResetFlatFootedCardsForPlayer_Master", PhotonTargets.MasterClient, photonId);
+        }
+        [PunRPC]
+        public void RPC_ResetFlatFootedCardsForPlayer_Master(int photonId)
+        {
+            NetworkPrint player = GetPlayer(photonId);
+            if(gameManager.Turns[gameManager.TurnIndex].Player == player.PlayerHolder)
+            {
+                photonView.RPC("RPC_ResetFlatFootedCardsForPlayer", PhotonTargets.All, photonId);
+            }
+        }
+
+        [PunRPC]
+        public void RPC_ResetFlatFootedCardsForPlayer(int photonId)
+        {
+            NetworkPrint player = GetPlayer(photonId);
+            foreach (CardInstance card in player.PlayerHolder.PlayedCards)
+            {
+                if (card.IsExhausted)
+                {
+                    card.SetExhausted(false);
+                }
+            }
+        }
+        #endregion
+        #region Reset Resource
+        public void PlayerWantsToResetResourceCards(int photonId)
+        {
+            photonView.RPC("RPC_ResetResourceCardsForPlayer_Master", PhotonTargets.MasterClient, photonId);
+        }
+        [PunRPC]
+        public void RPC_ResetResourceCardsForPlayer_Master(int photonId)
+        {
+            NetworkPrint player = GetPlayer(photonId);
+            if (gameManager.Turns[gameManager.TurnIndex].Player == player.PlayerHolder)
+            {
+                photonView.RPC("RPC_ResetResourceCardsForPlayer", PhotonTargets.All, photonId);
+            }
+        }
+        [PunRPC]
+        public void RPC_ResetResourceCardsForPlayer(int photonId)
+        {
+            NetworkPrint player = GetPlayer(photonId);
+            player.PlayerHolder.RefreshPlayerResource();
+        }
+        #endregion
         #endregion
     }
 }

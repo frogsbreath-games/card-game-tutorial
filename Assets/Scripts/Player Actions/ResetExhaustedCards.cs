@@ -8,13 +8,9 @@ namespace PL
     {
         public override void Execute(PlayerHolder player)
         {
-            foreach (CardInstance instance in player.PlayedCards)
-            {
-                if (instance.IsExhausted)
-                {
-                    instance.SetExhausted(false);
-                }
-            }
+            MultiplayerManager.Singleton.PlayerWantsToResetFlatFootedCards(player.PhotonId);
+            MultiplayerManager.Singleton.PlayerWantsToResetResourceCards(player.PhotonId);
+
         }
     }
 }

@@ -8,7 +8,8 @@ namespace PL
     {
         public override bool IsComplete()
         {
-            Settings.gameManager.CurrentPlayer.RefreshPlayerResource();
+            // TODO get player reference from phase
+            //MultiplayerManager.Singleton.PlayerWantsToResetResourceCards(GameManager.Singleton.CurrentPlayer.PhotonId);
             return true;
         }
 
