@@ -228,7 +228,7 @@ namespace PL
         #region CardOperations
         public enum CardOperation
         {
-            dropResourcesCard,pickCardFromDeck,dropCreatureCard
+            dropResourcesCard,pickCardFromDeck,dropCreatureCard,attackWithCreature
         }
 
         [PunRPC]
@@ -273,13 +273,24 @@ namespace PL
 
                     card.GameInstance.gameObject.SetActive(true);
                     break;
+                case CardOperation.attackWithCreature:
+                    if (player.PlayerHolder.AttackingCards.Contains(card.GameInstance))
+                    {
+                        player.PlayerHolder.AttackingCards.Remove(card.GameInstance);
+                        player.PlayerHolder.CurrentCardHolder.SetCardDown(card.GameInstance);
+                    }
+                    else if (card.GameInstance.CanAttack())
+                    {
+                        player.PlayerHolder.AttackingCards.Add(card.GameInstance);
+                        player.PlayerHolder.CurrentCardHolder.SetCardOnBattleLine(card.GameInstance);
+                        Settings.RegisterEvent($"{card.name} is attacking.", player.PlayerHolder.PlayerColor);
+                    }
+                    break;
                 default:
                     break;
             }
 
         }
-
-
         #endregion
 
         #region MultipleCard Operations

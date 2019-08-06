@@ -25,14 +25,7 @@ namespace PL
                     {
                         return;
                     }
-
-                    if (instance.CanAttack() && !player.AttackingCards.Contains(instance))
-                    {
-                        //Can Attack
-                        player.AttackingCards.Add(instance);
-                        player.CurrentCardHolder.SetCardOnBattleLine(instance);
-                        Settings.RegisterEvent($"{instance.visual.card.name} is attacking.", player.PlayerColor);
-                    }
+                    MultiplayerManager.Singleton.PlayerAttemptsToPlayCard(instance.visual.card.InstanceId , GameManager.Singleton.CurrentPlayer.PhotonId, MultiplayerManager.CardOperation.attackWithCreature);
                 }
             }
         }

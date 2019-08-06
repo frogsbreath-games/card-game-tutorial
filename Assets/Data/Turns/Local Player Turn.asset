@@ -19,7 +19,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f55150c92424ec343ae4be9ed9947380, type: 2}
   - {fileID: 11400000, guid: 1dd3c41a3d7fbb943b3e85e8e3f0d8eb, type: 2}
   - {fileID: 11400000, guid: 7af7b2765a9bf1546ba398eaabf39d6a, type: 2}
-  - {fileID: 11400000, guid: 02e64e82197c02b458f07f2b7b59f15a, type: 2}
   - {fileID: 11400000, guid: fe1677a498773a44ab4313b13c48ffa3, type: 2}
   TurnStartActions:
   - {fileID: 11400000, guid: 19afe80a7c736b843801393e79c199ce, type: 2}
