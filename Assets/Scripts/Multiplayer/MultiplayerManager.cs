@@ -228,7 +228,7 @@ namespace PL
         #region CardOperations
         public enum CardOperation
         {
-            dropResourcesCard,pickCardFromDeck,dropCreatureCard,attackWithCreature
+            dropResourcesCard,pickCardFromDeck,dropCreatureCard,attackWithCreature, cardToDiscard
         }
 
         [PunRPC]
@@ -286,6 +286,10 @@ namespace PL
                         Settings.RegisterEvent($"{card.name} is attacking.", player.PlayerHolder.PlayerColor);
                     }
                     break;
+                case CardOperation.cardToDiscard:
+                    card.GameInstance.CardInstanceToDiscard();
+
+                    break;
                 default:
                     break;
             }
@@ -342,6 +346,136 @@ namespace PL
             NetworkPrint player = GetPlayer(photonId);
             player.PlayerHolder.RefreshPlayerResource();
         }
+        #endregion
+
+        #region Battle Resolve
+        public void SetBattleResolvePhase()
+        {
+            photonView.RPC("RPC_BattleResolvePhase", PhotonTargets.MasterClient);
+        }
+
+        [PunRPC]
+        public void RPC_BattleResolvePhase()
+        {
+            if (NetworkManager.IsMaster)
+            {
+                ResolveBattleForPlayers();
+            }
+        }
+
+        public void ResolveBattleForPlayers()
+        {
+            PlayerHolder player = Settings.gameManager.CurrentPlayer;
+            PlayerHolder enemy = Settings.gameManager.GetOpponentOf(player);
+
+            if (player.AttackingCards.Count == 0)
+            {
+                photonView.RPC("RPC_BattleResolveCallback", PhotonTargets.All, player.PhotonId);
+                return;
+            }
+
+            //Dictionary<CardInstance,BlockInstance> blockInstanceDictionary = Settings.gameManager.GetBlockInstances();
+
+
+            foreach (CardInstance attackingInstance in player.AttackingCards)
+            {
+                bool AttackerDied = false;
+                Card card = attackingInstance.visual.card;
+                CardProperty attackerAttackProperty = card.GetProperty(DataHolder.AttackElement);
+                CardProperty AttackerDefenseProperty = card.GetProperty(DataHolder.DefenseElement);
+                if (attackerAttackProperty == null) { Debug.Log("Attacking card has no attack property"); continue; }
+
+                int attackValue = attackerAttackProperty.intValue;
+
+                BlockInstance blockInstance = Settings.gameManager.GetBlockInstanceForAttacker(attackingInstance);
+                if (blockInstance != null)
+                {
+                    Debug.Log("Block Instance not null");
+
+                    foreach (CardInstance blockerCardInstance in blockInstance.Blockers)
+                    {
+                        CardProperty blockerDefenseProperty = blockerCardInstance.visual.card.GetProperty(DataHolder.DefenseElement);
+                        CardProperty blockerAttackProperty = blockerCardInstance.visual.card.GetProperty(DataHolder.AttackElement);
+
+                        if (blockerDefenseProperty == null)
+                        {
+                            Debug.LogWarning("Block Property is Null");
+                        }
+                        attackValue -= blockerDefenseProperty.intValue;
+
+                        if (blockerDefenseProperty.intValue <= attackerAttackProperty.intValue)
+                        {
+                            //blocker dies
+                            //RPC
+                            PlayerAttemptsToPlayCard(blockerCardInstance.visual.card.InstanceId, blockerCardInstance.Owner.PhotonId, CardOperation.cardToDiscard);
+                        }
+
+                        if (AttackerDefenseProperty.intValue <= blockerAttackProperty.intValue)
+                        {
+                            AttackerDied = true;
+                            //attacker dies
+                            //RPC
+                            PlayerAttemptsToPlayCard(attackingInstance.visual.card.InstanceId, attackingInstance.Owner.PhotonId, CardOperation.cardToDiscard);
+                        }
+
+                    }
+
+                }
+
+                if (attackValue < 0)
+                {
+                    attackValue = 0;
+                }
+
+                if (!AttackerDied)
+                {
+                    player.DropCard(attackingInstance, false);
+                    player.CurrentCardHolder.SetCardDown(attackingInstance);
+                    attackingInstance.SetExhausted(true);
+                }
+
+                enemy.TakeDamage(attackValue);
+
+                photonView.RPC("RPC_UpdatePlayerHealth", PhotonTargets.All, enemy.PhotonId, enemy.Health);
+            }
+
+            photonView.RPC("RPC_BattleResolveCallback", PhotonTargets.All, player.PhotonId);
+            
+            return;
+        }
+
+        [PunRPC]
+        public void RPC_UpdatePlayerHealth(int photonId, int health)
+        {
+            NetworkPrint player = GetPlayer(photonId);
+            player.PlayerHolder.Health = health;
+            player.PlayerHolder.Visual.UpdateHealth();
+        }
+
+        [PunRPC]
+        public void RPC_BattleResolveCallback(int photonId)
+        {
+            Settings.gameManager.ClearBlockInstances();
+
+            foreach (NetworkPrint player in Players)
+            {
+                if (player == LocalPlayer)
+                {
+                    Settings.gameManager.EndPhase();
+                }
+
+                foreach (CardInstance card in player.PlayerHolder.AttackingCards)
+                {
+                    player.PlayerHolder.DropCard(card, false);
+                    player.PlayerHolder.CurrentCardHolder.SetCardDown(card);
+                    card.SetExhausted(true);
+                }
+
+                player.PlayerHolder.AttackingCards.Clear();
+
+            }
+        }
+
         #endregion
         #endregion
     }

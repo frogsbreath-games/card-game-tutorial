@@ -16,3 +16,5 @@ MonoBehaviour:
   HandCardLogic: {fileID: 11400000, guid: f6efd306dfa55e54bb498028ae938023, type: 2}
   CardPrefab: {fileID: 8884804187346683042, guid: 50f6105b071b1ad4cbb84ea6d0ebda81,
     type: 3}
+  AttackElement: {fileID: 11400000, guid: 9062a93e4692f8b45b6cc486a84d2c44, type: 2}
+  DefenseElement: {fileID: 11400000, guid: 426d7c09987650a4eaa164937b2027ba, type: 2}

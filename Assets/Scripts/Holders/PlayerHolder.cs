@@ -11,6 +11,7 @@ namespace PL
 
         [System.NonSerialized]
         public int Health = 20;
+        
         public PlayerStatsVisual Visual;
 
         //public string[] StartingCards;

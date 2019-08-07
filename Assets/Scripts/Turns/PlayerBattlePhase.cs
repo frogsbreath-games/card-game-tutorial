@@ -20,21 +20,21 @@ namespace PL
 
         public override void OnEndPhase()
         {
-            if (isInit)
+            if (IsInit)
             {
                 Settings.gameManager.SetState(null);
-                isInit = false;
+                IsInit = false;
             }
         }
 
         public override void OnStartPhase()
         {
-            if (!isInit)
+            if (!IsInit)
             {
                     forceExit = !IsBattleValid.IsValid();
                     Settings.gameManager.SetState(!forceExit ? BattleControlState : null);
                     Settings.gameManager.onPhaseChange.Raise();
-                    isInit = true;
+                    IsInit = true;
 
 
             }

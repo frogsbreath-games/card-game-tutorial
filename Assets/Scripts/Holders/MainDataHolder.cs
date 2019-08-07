@@ -10,6 +10,8 @@ namespace PL
         public GameElements.GameElementLogic PlayedCardLogic;
         public GameElements.GameElementLogic HandCardLogic;
         public GameObject CardPrefab;
+        public CardElement AttackElement;
+        public CardElement DefenseElement;
 
     }
 }

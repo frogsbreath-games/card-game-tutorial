@@ -11,7 +11,7 @@ namespace PL
         public abstract bool IsComplete();
 
         [System.NonSerialized]
-        protected bool isInit;
+        protected bool IsInit;
 
         public abstract void OnStartPhase();
 
